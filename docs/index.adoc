@@ -15,7 +15,6 @@ include::{ref_dir}/docs/references/reference_definitions.adoc[]
 
 image::{s2_logo}["S2 logo",align="center"]
 
-//image::openehr_block_diagram.svg["openEHR components",align="center",width="60%"]
 
 :numbered!:
 = Base Model
