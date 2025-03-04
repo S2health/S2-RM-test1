@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="description" content="S2 Patterns Information Model specification">
+<meta name="keywords" content="EHR, data structures, reference model, S2">
+<title>S2 Patterns Information Model</title>
+<link rel="stylesheet" href="https://platform.s2health.org/css/s2.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#_s2_patterns_information_model">S2 Patterns Information Model</a>
+<ul class="sectlevel1">
+<li><a href="#_revision_history">Revision History</a></li>
+<li><a href="#_acknowledgements">Acknowledgements</a>
+<ul class="sectlevel2">
+<li><a href="#_editor">Editor</a></li>
+<li><a href="#_contributors">Contributors</a></li>
+<li><a href="#_support">Support</a></li>
+<li><a href="#_trademarks">Trademarks</a></li>
+</ul>
+</li>
+<li><a href="#_preface">1. Preface</a>
+<ul class="sectlevel2">
+<li><a href="#_purpose">1.1. Purpose</a></li>
+<li><a href="#_related_documents">1.2. Related Documents</a></li>
+<li><a href="#_status">1.3. Status</a></li>
+<li><a href="#_feedback">1.4. Feedback</a></li>
+<li><a href="#_conformance">1.5. Conformance</a></li>
+</ul>
+</li>
+<li><a href="#_data_structures">2. Data Structures</a>
+<ul class="sectlevel2">
+<li><a href="#_requirements">2.1. Requirements</a>
+<ul class="sectlevel3">
+<li><a href="#_inline_data">2.1.1. Inline Data</a></li>
+<li><a href="#_entity_references">2.1.2. Entity References</a></li>
+<li><a href="#_citations_of_previously_captured_data">2.1.3. Citations of Previously Captured Data</a></li>
+</ul>
+</li>
+<li><a href="#_overview">2.2. Overview</a></li>
+<li><a href="#_structure_representation">2.3. Structure Representation</a>
+<ul class="sectlevel3">
+<li><a href="#_class_descriptions">2.3.1. Class Descriptions</a>
+<ul class="sectlevel4">
+<li><a href="#_node_class">2.3.1.1. Node Class</a></li>
+<li><a href="#_info_node_class">2.3.1.2. Info_node Class</a></li>
+<li><a href="#_entity_ref_node_class">2.3.1.3. Entity_ref_node Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_time_series_representation">2.4. Time Series Representation</a>
+<ul class="sectlevel3">
+<li><a href="#_basic_semantics">2.4.1. Basic Semantics</a></li>
+<li><a href="#_timing">2.4.2. Timing</a></li>
+<li><a href="#_point_events">2.4.3. Point Events</a></li>
+<li><a href="#_interval_events">2.4.4. Interval Events</a></li>
+<li><a href="#_change_data">2.4.5. Change Data</a></li>
+<li><a href="#_summary_event_data">2.4.6. Summary Event Data</a></li>
+<li><a href="#_efficient_representation_of_real_time_device_data">2.4.7. Efficient Representation of Real-time Device Data</a></li>
+<li><a href="#_class_descriptions_2">2.4.8. Class Descriptions</a>
+<ul class="sectlevel4">
+<li><a href="#_event_class">2.4.8.1. Event Class</a></li>
+<li><a href="#_point_event_class">2.4.8.2. Point_event Class</a></li>
+<li><a href="#_interval_event_class">2.4.8.3. Interval_event Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_history_instance_structures">2.5. History Instance Structures</a>
+<ul class="sectlevel3">
+<li><a href="#_single_sample">2.5.1. Single Sample</a></li>
+<li><a href="#_5_minute_blood_pressure_averages">2.5.2. 5-minute Blood Pressure Averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_participation_package">3. Participation Package</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_2">3.1. Overview</a></li>
+<li><a href="#_design_principles">3.2. Design Principles</a>
+<ul class="sectlevel3">
+<li><a href="#_referring_to_external_entities">3.2.1. Referring to External Entities</a></li>
+</ul>
+</li>
+<li><a href="#_class_descriptions_3">3.3. Class Descriptions</a>
+<ul class="sectlevel3">
+<li><a href="#_participation_class">3.3.1. Participation Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="http://s2health.org/resources/logos/s2logo.svg" alt="S2 logo">
+</div>
+</div>
+</div>
+</div>
+<h1 id="_s2_patterns_information_model" class="sect0"><a class="anchor" href="#_s2_patterns_information_model"></a>S2 Patterns Information Model</h1>
+<div class="openblock partintro">
+<div class="content">
+<table class="tableblock frame-all grid-all fit-content spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="2"><strong>Issuer</strong>: <a href="http://www.s2health.org" target="_blank" rel="noopener">S2 Health</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release</strong>: BASE latest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Status</strong>: DEVELOPMENT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Revision</strong>: <a href="#latest_issue">0.8.7</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Date</strong>: <a href="#latest_issue_date">04 Nov 2024</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Keywords</strong>: EHR, data structures, reference model, S2</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="2">&#169; 2023 - 2025 S2 Health</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><a href="http://www.s2health.org" target="_blank" rel="noopener">S2 Health</a> is an independent, non-profit foundation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Licence</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://specifications.openehr.org/images/cc-by-nd-88x31.png" alt="image"></span> Creative Commons Attribution-NoDerivs 4.0 Unported. <a href="https://creativecommons.org/licenses/by-nd/4.0/" class="bare">https://creativecommons.org/licenses/by-nd/4.0/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Support</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issues: <a href="https://platform.s2health.org/components/BASE/open_issues" target="_blank" rel="noopener">Report an Issue</a><br>
+ Web: <a href="https://platform.s2health.org" target="_blank" rel="noopener">https://platform.s2health.org</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>Revision History</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 54.5454%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1819%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Issue</th>
+<th class="tableblock halign-left valign-top">Details</th>
+<th class="tableblock halign-left valign-top">Resolution</th>
+<th class="tableblock halign-left valign-top">Completed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.7</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="latest_issue"></a>0.8.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-60" target="_blank" rel="noopener">SBASE-60</a>. Remove custom domain descendants of <code>Info_item</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D Perkins</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="latest_issue_date"></a>04 Nov 2024</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.6</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.8.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-58" target="_blank" rel="noopener">SBASE-58</a>. Move re-usable Entity classes to BASE as subtypes of <code>Info_node</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">07 Oct 2024</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.5</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.8.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-49" target="_blank" rel="noopener">SBASE-49</a>. Replace <code>Party_proxy</code> and related classes with <code>Entity_ref_node</code>;<br>
+ <a href="https://platform.s2health.org/tickets/SBASE-49" target="_blank" rel="noopener">SBASE-57</a>. Make <code>Participation Locatable</code>;<br>
+ <a href="https://platform.s2health.org/tickets/SBASE-29" target="_blank" rel="noopener">SBASE-29</a>. Refactor <code>Node</code> to <code>Entity_ref_node</code> and <code>Info_node</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27 Sep 2024</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.7.5</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-33" target="_blank" rel="noopener">SBASE-33</a>. Specify terminology for built-in attributes in BASE classes;<br>
+<a href="https://platform.s2health.org/tickets/SBASE-8" target="_blank" rel="noopener">SBASE-8</a>. Define <code>null_flavour</code> codes to use in <code>Node</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17 Nov 2023</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.7.0</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-18" target="_blank" rel="noopener">SBASE-18</a>. Replace <code>Cluster</code> and <code>Element</code> with single <code>Node</code> type.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19 Oct 2023</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-17" target="_blank" rel="noopener">SBASE-17</a>. Add <code>Element.<em>original_value</em></code> field to carry pre-normalized value where needed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17 Oct 2023</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.6.0</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.6.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial Writing: based on openEHR and HL7 FHIR Data structures.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 Apr 2023</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>Acknowledgements</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_editor"><a class="anchor" href="#_editor"></a>Editor</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Graphite Health Informatics group.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_contributors"><a class="anchor" href="#_contributors"></a>Contributors</h3>
+<div class="paragraph">
+<p>This specification benefited from input from the wider health informatics community. The S2 Foundation would like to recognise the following people for their contributions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>xxx</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support"><a class="anchor" href="#_support"></a>Support</h3>
+<div class="paragraph">
+<p>The work reported in this specification has been funded in part by the following organisations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>xxx</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trademarks"><a class="anchor" href="#_trademarks"></a>Trademarks</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>'openEHR' is a trademark of the openEHR Foundation</p>
+</li>
+<li>
+<p>'Java' is a registered trademark of Oracle Corporation</p>
+</li>
+<li>
+<p>'Microsoft' and '.Net' are trademarks of the Microsoft Corporation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preface"><a class="anchor" href="#_preface"></a>1. Preface</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_purpose"><a class="anchor" href="#_purpose"></a>1.1. Purpose</h3>
+<div class="paragraph">
+<p>This document describes the common patterns used in S2 Reference Model, including participation and recursive structures.</p>
+</div>
+<div class="paragraph">
+<p>The intended audience includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Standards bodies producing health informatics standards;</p>
+</li>
+<li>
+<p>Academic groups using openEHR;</p>
+</li>
+<li>
+<p>The open source healthcare community;</p>
+</li>
+<li>
+<p>Solution vendors;</p>
+</li>
+<li>
+<p>Medical informaticians and clinicians interested in health information.</p>
+</li>
+<li>
+<p>Health data managers.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_related_documents"><a class="anchor" href="#_related_documents"></a>1.2. Related Documents</h3>
+<div class="paragraph">
+<p>Prerequisite documents for reading this document include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://platform.s2health.org/releases/RM/latest/architecture_overview.html" target="_blank" rel="noopener">S2 Architecture Overview</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status"><a class="anchor" href="#_status"></a>1.3. Status</h3>
+<div class="paragraph">
+<p>This specification is in the DEVELOPMENT state. The development version of this document can be found at <a href="https://specifications.openehr.org/releases/RM/latest/data_structures.html" target="_blank" rel="noopener">https://specifications.openehr.org/releases/RM/latest/data_structures.html</a>.</p>
+</div>
+<div class="paragraph">
+<p>Known omissions or questions are indicated in the text with a 'to be determined' paragraph, as follows:</p>
+</div>
+<div class="paragraph tbd">
+<p><strong>TBD</strong>: (example To Be Determined paragraph)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_feedback"><a class="anchor" href="#_feedback"></a>1.4. Feedback</h3>
+<div class="paragraph">
+<p>Feedback may be provided on the <a href="https://discourse.openehr.org/c/specifications/rm" target="_blank" rel="noopener">openEHR RM specifications forum</a>.</p>
+</div>
+<div class="paragraph">
+<p>Issues may be raised on the <a href="https://platform.s2health.org/components/BASE/open_issues" target="_blank" rel="noopener">specifications Problem Report tracker</a>.</p>
+</div>
+<div class="paragraph">
+<p>To see changes made due to previously reported issues, see the <a href="https://platform.s2health.org/components/BASE/history" target="_blank" rel="noopener">BASE component Change Request tracker</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conformance"><a class="anchor" href="#_conformance"></a>1.5. Conformance</h3>
+<div class="paragraph">
+<p>Conformance of a data or software artifact to an openEHR specification is determined by a formal test of that artifact against the relevant openEHR Implementation Technology Specification(s) (ITSs), such as an IDL interface or an XML-schema. Since ITSs are formal derivations from underlying models, ITS conformance indicates model conformance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structures"><a class="anchor" href="#_data_structures"></a>2. Data Structures</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_requirements"><a class="anchor" href="#_requirements"></a>2.1. Requirements</h3>
+<div class="paragraph">
+<p>Representation of clinical data requires the following categories of content:</p>
+</div>
+<div class="sect3">
+<h4 id="_inline_data"><a class="anchor" href="#_inline_data"></a>2.1.1. Inline Data</h4>
+<div class="paragraph">
+<p>Data that is the primary representation of some content occurs in the following form:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>trees of values, e.g. biochemistry, microbiology results;</p>
+</li>
+<li>
+<p>histories of values, each of which takes any of the above forms, e.g. a time series of blood pressures, glucose levels, or imaging data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph tbd">
+<p>TBD; more</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_entity_references"><a class="anchor" href="#_entity_references"></a>2.1.2. Entity References</h4>
+<div class="paragraph">
+<p>Some data items are semantically references to real world entities such as persons, devices, places, processes etc. The latter are represented by digital twin objects, either inside or outside the clinical data environment. Entity reference objects need to be able to represent the following, in any any all combinations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a coded term indicating just the type of entity, e.g. 'obstetric ultrasound machine`;</p>
+</li>
+<li>
+<p>a reference to an information object in an appropriate system (eMPI, inventory, etc) system;</p>
+</li>
+<li>
+<p>a data 'thumbnail', which is configurable outside the RM, and consists of a copy of any data elements from the reference target that are to be inlined for convenience in the referring data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The formal reference (second item above) may include one or more of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a machine identifier, e.g. a system-generated Guid for a Person object;</p>
+</li>
+<li>
+<p>a real-world identifier for the entity, e.g. a government-issued social security number;</p>
+</li>
+<li>
+<p>a multi-part match 'key', i.e. one or more other attributes of the entity that may be used to reliably match it in case other methods fail.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>None of these methods is guaranteed to work in all circumstances. The first method can fail if machine identifiers are not preserved across technology upgrades, product replacements etc. while the last is not inherently reliable if it doesn&#8217;t include externally issued identifiers. The second method is usually fairly reliable, if the issuing organization and its systems are long-term reliable. More than one method may be required to resolve the reference in some circumstances.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_citations_of_previously_captured_data"><a class="anchor" href="#_citations_of_previously_captured_data"></a>2.1.3. Citations of Previously Captured Data</h4>
+<div class="paragraph">
+<p>A third case is the ability to cite inline a previously recorded information item that is not itself a distinct entity, e.g. a previous diagnosis, high blood pressure or similar.</p>
+</div>
+<div class="paragraph tbd">
+<p>TBD: not yet supported.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_overview"><a class="anchor" href="#_overview"></a>2.2. Overview</h3>
+<div class="paragraph">
+<p>The <code>base.patterns.data_structures</code> package contains classes representing inline data, including time series; and entity references. and is illustrated below.</p>
+</div>
+<div id="data_structures_package" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-patterns.data_structures.svg" alt="BASE patterns.data structures">
+</div>
+<div class="title">Figure 1. base.patterns.data_structures Package</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_structure_representation"><a class="anchor" href="#_structure_representation"></a>2.3. Structure Representation</h3>
+<div class="paragraph">
+<p>Representation of structures other tan time series is supported by a number of 'node' classes. The general concept is that any 'data point' can be fractal, and may consist of literally one data item, or a sub-structure of further detail, or both. A typical example is a structure representing body location. A single data value representation is typically a coded term from a terminology such as SNOMED CT. More detailed anatomical location information may consist of subordinate data points representing e.g. centre point, radius, distance from morphological features and so on. In general, any set of 'data points' is always potentially a set of trees. Where there is sub-structure, the single parent element is usually a summary, coded, and/or stringified representation of the details.</p>
+</div>
+<div class="paragraph">
+<p>This structure is formalised in the <code>Node</code> class, in which the <code><em>value</em></code> property records a single item of type <code>Data_value</code> and the <code><em>items</em></code> property provides the sub-tree of subordinate elements, each of which is another <code>Node</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Node</code> class is abstract, and has two concrete descendants: <code>Info_node</code>, for representing inline data, and <code>Entity_ref_node</code>, for representing references to the information representations (digital twins) of independent entities, such as devices, persons etc.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Entity_ref_node</code> property <code><em>is_self</em></code> is provided to allow an entity reference to be marked to indicate that it is the subject of the information containing the reference, where this has meaning. The main use of this is to create references from within person-oriented records such as health records that indicate that the subject of a particular piece of information is the same as the subject of the record. Where this is used, the <code><em>entity_ref</em></code> property would typically not be populated, for reasons of security (i.e. to prevent any link from personal health or other data to identifying information).</p>
+</div>
+<div class="sect3">
+<h4 id="_class_descriptions"><a class="anchor" href="#_class_descriptions"></a>2.3.1. Class Descriptions</h4>
+<div class="sect4">
+<h5 id="_node_class"><a class="anchor" href="#_node_class"></a>2.3.1.1. Node Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong><em>Node (abstract)</em></strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Node carrying data about a real world Entity. May be represented as an atomic value, via the <code><em>value</em></code> field, or a further sub-structure, or both,</p>
+</div>
+<div class="paragraph">
+<p>If the <code><em>value</em></code> property is set, it carries the normalized value. In cases where this is different in a significant way from the originally captured value, the <code><em>original_value</em></code> is used to capture the latter. Cases include: conversion of units; terminology conversion / mapping.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_info_item_class">Info_item</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>null_flavor</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Flavor of null value, e.g. <code>253&#124;unknown&#124;</code>, <code>271&#124;no information&#124;</code>, <code>272&#124;masked&#124;</code>, and <code>273&#124;not applicable&#124;</code>.</p>
+</div>
+<div class="paragraph">
+<p>TODO: correct to S2 codes</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>null_reason</strong>: <code><a href="#_text_class">Text</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional specific reason for null value; if set, <code><em>null_flavour</em></code> must be set. Null reason may apply only to a minority of clinical data, commonly needed in reporting contexts.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>items</strong>: <code>List&lt;<a href="#_node_class">Node</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Subordinate data items.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong>: <code><a href="#_data_value_class">Data_value</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><em>Normalized</em> value within <code>Element</code>. Any concrete subtype of <code>Data_value</code> can be used.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>is_null</strong> (): <code><a href="#_boolean_class">Boolean</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if value logically not known, e.g. if indeterminate, not asked etc.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_is_null_valid</em>: <code>is_null() = (value = Void)</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_null_flavour_indicated</em>: <code>is_null() xor null_flavour = Void</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_null_flavour_valid</em>: <code>is_null implies terminology (Terminology_id_openehr).has_code_for_group_id (Group_id_null_flavour, null_flavour.defining_code)</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_null_reason_valid</em>: <code>null_reason /= Void implies is_null()</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_info_node_class"><a class="anchor" href="#_info_node_class"></a>2.3.1.2. Info_node Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Info_node</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_node_class">Node</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>original_value</strong>: <code><a href="#_data_value_class">Data_value</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional property to record data value in the form captured in original application or system.</p>
+</div>
+<div class="paragraph">
+<p>Use only for original values that might be useful to the end user of the converted information, e.g. a quantity in original units.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_entity_ref_node_class"><a class="anchor" href="#_entity_ref_node_class"></a>2.3.1.3. Entity_ref_node Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Entity_ref_node</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Node representing a reference to a real world Individual of some Entity type, that can be resolved to the location of the definitive digital twin of the entity.</p>
+</div>
+<div class="paragraph">
+<p>Node that is a reference to an Individual Entity. The <code>items</code> property should only be used to represent a 'thumbnail' of original data, i.e. a selection that is required to be inline for convenience.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_node_class">Node</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>entity_ref</strong>: <code><a href="#_object_ref_class">Object_ref</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Entity&#8217;s information system (i.e. digital twin) identifier.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>is_self</strong>: <code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if this reference stands for the 'self' or subject (typically a patient) of information.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_time_series_representation"><a class="anchor" href="#_time_series_representation"></a>2.4. Time Series Representation</h3>
+<div class="paragraph">
+<p>The <code>history</code> classes formalise the concept of past, linear time, via which historical data of any structural complexity can be recorded. It supports both instantaneous and interval event samples within periodic and aperiodic series.</p>
+</div>
+<div class="paragraph">
+<p>Regardless of whether the actual data consist of a single sample or many, they are represented in the same way: as a history of events, i.e. as a time series, allowing all software to access data in a uniform way, whether it be a single measurement of weight, a long series of three- or four-dimensional images, or a series of encapsulated multimedia items. The type of data contained in a History structure may be any openEHR data, including text, coded, quantitative, time, or multimedia. In the case of quantitative and date/time data (<code>rm.data_types.quantity</code> package in <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_quantity_package" target="_blank" rel="noopener">openEHR Data Types</a>), the data are formally quantitative, but for the vast majority of cases of other types of data (text, coded etc), there is an obvious quantitative interpretation associated with the values. An example is samples whose data values are coded terms such as 'low', 'normal', 'high', 'critical high', representing blood pressure measurements over time.</p>
+</div>
+<div class="paragraph">
+<p>Instantaneous events are representing using the type <code>Point_event</code>, for which the value (<code><em>data</em></code> attribute) always represents an actual instantaneous value of a datum at a point in time. However, time series data may also be represented using the <code>Interval_event</code> type, enabling values other than 'actual' to be recorded for intervals of time. Events recorded in this form are accordingly tagged with a mathematical function, such as 'actual', 'mean', 'change' and so on, as defined by the openEHR <a href="https://github.com/openEHR/specifications-TERM/blob/master/computable/XML/en/openehr_terminology.xml" target="_blank" rel="noopener"><code>event math function</code> vocabulary</a>.</p>
+</div>
+<div class="paragraph">
+<p>The model also supports the inclusion of 'summary' data, i.e. a textual or image item which summarises in some way the entire history.</p>
+</div>
+<div class="paragraph">
+<p>In formal terms, the model defines the constrained generic (otherwise known as 'template' or 'parameterised') types <code>History&lt;T&#8594;Cluster&gt;</code>, <code>`Event</code>&lt;T&#8594;Cluster&gt;`, <code>Point_event&lt;T&gt;</code>, and <code>Interval_event&lt;T&gt;</code> where the <code><em>type</em></code> parameter is constrained to the <code>Cluster</code> type, and defines the type of the data recorded in an instance of <code>History</code>. The effect is that repeated instances of spatially complex data can recur in time, corresponding to the way data are actually measured. An aperiodic series of <code>Point_event</code> instances would typically be used to represent manual measurements repeated in time. Periodic histories of <code>Interval_event</code> instances would typically be used to represent vital signs monitor output (which is usually delivered in averaged form potentially with additional minimum and maximum values).</p>
+</div>
+<div class="paragraph">
+<p>As with all other parts of the openEHR reference model, the <code>history</code> package is designed so that archetypes define the domain semantics of <code>History</code> instances. The <code>history</code> package is shown on the left of <a href="#data_structures_package">Figure 1</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_basic_semantics"><a class="anchor" href="#_basic_semantics"></a>2.4.1. Basic Semantics</h4>
+<div class="paragraph">
+<p>The intention of the History model is to represent time-based data for which every sample in the series is a measurement of the same phenomenon (e.g. patient heart rate) and is obtained using the same measurement method (e.g. pulse oximeter). Samples taken in this way can be reliably treated as comparable, i.e. representing changes in the same phenomenon over time, and accordingly can be safely used for time-based computation, such as graphing, statistical analysis and so on. A History can contain any mixture of <code>Point_event</code> and <code>Interval_event</code> instances. Clearly it is impossible for the model to guarantee completely correct usage on its own, however there two major safeguards.</p>
+</div>
+<div class="paragraph">
+<p>Firstly, the use of generic types forces the type of the data in each Event to be the same. A History of type <code>History&lt;Node&gt;</code> therefore constrains the type of the data at each Event (<code>`Event</code>.<em>item</em>`) to be of type <code>Node</code> and nothing else.</p>
+</div>
+<div class="paragraph">
+<p>Secondly, the use of archetyping (typically within openEHR Observation archetypes) ensures the actual structure of the <code>Cluster</code> subtype is defined in the same way for every sample - e.g. a two-item list representing systolic and diastolic blood pressure.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_timing"><a class="anchor" href="#_timing"></a>2.4.2. Timing</h4>
+<div class="paragraph">
+<p>An instance of the <code>History</code> class contains the <code><em>origin</em>: Date_time</code> attribute, indicating what is considered the '0-point' of the time series, and a series of instances of the <code>Event</code> subtype, each containing a <code><em>time</em>: Date_time</code> attribute representing the absolute time of the event. The relative offset
+of any Event is computed as the difference between the <code>Event`.<em>time</em>` and <code>History.<em>origin</em></code> by the </code>Event`.<em>offset</em>` function. For Interval events (i.e. instances of <code>Interval_event</code>), the <code><em>time</em></code> attribute always refers to the end time of the event, since this is the time at which the data (e.g. average) are true.</p>
+</div>
+<div class="paragraph">
+<p>The origin time of a History does not have to be the time of the first sample - it might be the time of an event such as child-birth with respect to which the samples are recorded, e.g. Apgar scores (Apgar is a 0-10 score indicating the health of a newborn based on breathing, heart rate, colour, muscle tone and reflexes) at 1 and 3 minute offsets.</p>
+</div>
+<div class="paragraph">
+<p>Periodicity and aperiodicity are expressed via the <code><em>is_periodic</em></code> and <code><em>period</em></code> attributes. For a periodic time-series, <code><em>period</em></code> is set to the period duration value and <code><em>is_periodic</em></code> returns <code>True</code>. The total duration of the History is given by the <code>History.<em>duration</em></code> function. The following figure illustrates a number of variations in History periodicity and Event type.</p>
+</div>
+<div id="history_period" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_period.svg" alt="history period" width="70%">
+</div>
+<div class="title">Figure 2. Variation in History periodicity and Event width</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_point_events"><a class="anchor" href="#_point_events"></a>2.4.3. Point Events</h4>
+<div class="paragraph">
+<p>The simplest kind of Event in a History is a 'point' event, expressed by instances of the class <code>Point_event</code>, representing an instantaneous value. A <code>History</code> instance may be composed solely of Point events, as would be the case with a number of blood pressure values measured over time as the patient changes position. An Apgar result is a typical example of aperiodic point data, typically consisting of 2 or 3 events, each containing 5 values and a 6th value repersenting the Apgar score for that time point. Point data may also be available from monitoring devices. For fine-granularity (e.g. 1 second) data, the number of samples may be too voluminous for the health record, and more efficient recording in the form of summary Interval events (see below) might be desired. The diagram below  illustrates the structure of a <code>History</code> containing <code>Point_events</code>.</p>
+</div>
+<div id="history_bp" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_bp.svg" alt="history bp">
+</div>
+<div class="title">Figure 3. Structure of <code>History&lt;T&gt;</code> of <code>Point_events</code></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_interval_events"><a class="anchor" href="#_interval_events"></a>2.4.4. Interval Events</h4>
+<div class="paragraph">
+<p>Instances of the <code>Interval_event</code> class are used to express values corresponding to an interval in time. The <code>Interval_event.<em>width</em></code> attribute defines the duration of the interval; and the inherited <code><em>time</em></code> value corresponds to the <em>trailing edge</em> of the event.</p>
+</div>
+<div class="paragraph">
+<p>The semantics of the Interval event type in this model are that the values effectively summarise actual instantaneous values of a datum that have occurred during the period of the event interval. The mathematical meaning of the data value of any particular interval event is given by the <code><em>math_function</em></code> attribute. This is coded by the <a href="https://github.com/openEHR/specifications-TERM/blob/master/computable/XML/en/openehr_terminology.xml">openEHR vocabulary <code>event math function</code></a>, and takes values such as <code>145|minimum|</code>, <code>144|maximum|</code>, <code>146|mean|</code>, <code>147|change|</code> and so on. The math function value on a particular event applies to all the data points attached to the event <code><em>data</em></code> attribute.</p>
+</div>
+<div class="paragraph">
+<p>The particular math functions used in each Interval event in a History may vary throughout the History; for example, one 4-hour Interval event might contain data representing average values, while a following event might contain data representing maximum values for the same or a later time point. Such data can be conveniently used for generating sophisticated graphs of the underlying datum over time. The next figure illustrates a History containing 2 pairs of 4-hour blood pressure Interval events, with each pair containing maximum and mean blood pressure value structures for <code>+4h</code> and <code>+8h</code> timepoints (each of which consist of a systolic and diastolic value).</p>
+</div>
+<div id="history_bp_math" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_bp_math.svg" alt="history bp math">
+</div>
+<div class="title">Figure 4. Structure of <code>History&lt;T&gt;</code> of <code>Interval_events</code></div>
+</div>
+<div class="paragraph">
+<p>Interval events can overlap other interval or point events within the same History. A situation where this may occur is with measurement of different periods of vital signs, such as 4-hourly blood pressure events, overlapped by a 24-hour event which contains the values over a period of 6 x 4 hour periods. In general a long Interval event can overlap any combination of Point or Interval events, as shown in the following figure.</p>
+</div>
+<div id="history_event_overlapping" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_event_overlapping.png" alt="history event overlapping" width="60%">
+</div>
+<div class="title">Figure 5. Overlapping Events</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_change_data"><a class="anchor" href="#_change_data"></a>2.4.5. Change Data</h4>
+<div class="paragraph">
+<p>One sub-category of interval data that deserves mention is change data. There are three event math function terms used for indicating changes in data values as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>147|change|</code>: this means that the value recorded is the difference between the value now and the value some time previously. It can be positive or negative;</p>
+</li>
+<li>
+<p><code>522|increase|</code>: the value recorded for the change is positive. The name (i.e. <code>Node.<em>name</em></code>) chosen for the item in an archetype carries the semantic of positivity e.g. 'increase of &#8230;&#8203;.; rise of&#8230;&#8203;.; &#8230;&#8203;.gain' etc;</p>
+</li>
+<li>
+<p><code>521|decrease|</code>: the value recorded for the change is positive. But the name chosen for the item carries the semantic of negativity e.g. 'decrease of &#8230;&#8203;.; fall of &#8230;&#8203;.; &#8230;&#8203;. loss'.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following examples show how the data and these math functions are coordinated.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>weight last week was 76 kg. Wait this week = 74 kg. Possible instances:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item Name<br>
+in Archetype</th>
+<th class="tableblock halign-left valign-top">Value<br>
+stored</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Math Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight change'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+ 2kg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dv_quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::147|change|</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight loss'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(+)2kg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dv_quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::521|decrease|</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight loss'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::521|decrease|</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>weight last week was 80 kg. Weight this week = 83 kg. Possible instances:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item Name<br>
+in Archetype</th>
+<th class="tableblock halign-left valign-top">Value<br>
+stored</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Math Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight change'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(+)3kg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dv_quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::147|change|</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight increase'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(+)3kg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dv_quantity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::522|increase|</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'weight gain'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">True</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openehr::522|increase|</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The use of these math function indicators allows the correct representation of change values, no matter
+how they were captured, in a computable form.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_summary_event_data"><a class="anchor" href="#_summary_event_data"></a>2.4.6. Summary Event Data</h4>
+<div class="paragraph">
+<p>A relatively common situation particularly in laboratory testing is the existence of a "summarising"
+event which accompanies more detailed historical data. Examples where this arises include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a series of exams with a single radiologist report for all of them (the report might include one or more key images);</p>
+</li>
+<li>
+<p>graphical summary of a dynamic challenge test such as Glucose tolerance test;</p>
+</li>
+<li>
+<p>some comment about the pattern of values on a set of observed values in series.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Such data are accommodated within the model via the optional <code>History.<em>summary</em></code> attribute, which is
+itself a structure, archetypable separately from the structure of the main data. In the first example
+above, the summary data might consist of an <code>Info_node</code> object containing a textual report; in the
+second, an <code>Info_node</code> object containing a image within a <code>Dv_multimedia</code> instance.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_efficient_representation_of_real_time_device_data"><a class="anchor" href="#_efficient_representation_of_real_time_device_data"></a>2.4.7. Efficient Representation of Real-time Device Data</h4>
+<div class="paragraph">
+<p>A useful practical consequence of the Interval Event is that it allows long periods of stable data to be represented with a single Interval event, while interesting perturbations will be represented with a number of fine-grained Interval or Point Events. In the example in the next figure, Event instances are used represent 4 hours of data consisting of 14,400 x 1 second samples from a blood pressure monitor. The optional <code>Interval_event.<em>sample_count</em></code> attribute can be used to record the number of original samples summarised in the event. In the illustration, the <code><em>math_function</em></code> is shown as <code>146|mean|</code>; clearly in the first long period, the monitored datum was not absolutely flat. The implication is that the recording software was configured to regard variations in a small band (e.g. 5mm Hg) as insignificant, and only to create new Event objects when the underlying values moved outside the band. Another approach would have been to create two Interval Event objects for each long period, one giving minimum value, the other maximum value, still based on the principle of generating one such pair for periods when the underlying data remained within specified limits. Regardless of the details, this general approach provides a way to include hours of fine-grained data from devices like vital signs monitors in very little space; the data simply need to be transformed into equivalent openEHR History form first.</p>
+</div>
+<div id="history_data_compression" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_data_compression.svg" alt="history data compression">
+</div>
+<div class="title">Figure 6. Data compression effect of History with Interval Events</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_class_descriptions_2"><a class="anchor" href="#_class_descriptions_2"></a>2.4.8. Class Descriptions</h4>
+<div class="sect4">
+<h5 id="_event_class"><a class="anchor" href="#_event_class"></a>2.4.8.1. Event Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong><em>Event (abstract)</em></strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Defines the abstract notion of a single event in a series. This class is generic, allowing types to be generated which are locked to particular spatial types, such as <code>EVENT&lt;ITEM_LIST&gt;</code>. Subtypes express point or intveral data.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_locatable_class">Locatable</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>time</strong>: <code><a href="#_date_time_class">Date_time</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Time of this event. If the width is non-zero, it is the time point of the trailing edge of the event.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>items</strong>: <code>List&lt;<a href="#_node_class">Node</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Constituent Nodes for this event.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>offset</strong> (): <code><a href="#_duration_class">Duration</a></code><br>
+<br>
+<em>Post_condition</em>: <code>Result = time.diff(parent.origin)</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Offset of this event from origin, computed as time.diff(parent.origin).</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Offset_validity1</em>: <code>offset /= Void and then offset = time.diff (parent.origin)</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_point_event_class"><a class="anchor" href="#_point_event_class"></a>2.4.8.2. Point_event Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Point_event</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Defines a single point event in a series.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_event_class">Event</a></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_interval_event_class"><a class="anchor" href="#_interval_event_class"></a>2.4.8.3. Interval_event Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Interval_event</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Defines a single interval event in a series.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_event_class">Event</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>width</strong>: <code><a href="#_duration_class">Duration</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Duration of the time interval during which the values recorded under <code>data</code> are true and, if set, the values recorded under <code>state</code> are true. Void if an instantaneous event.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sample_count</strong>: <code><a href="#_integer_class">Integer</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional count of original samples to which this event corresponds.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sample_function</strong>: <code><a href="#_sample_function_kind_enumeration">Sample_function_kind</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Mathematical function of the data of this event, e.g.  maximum, mean etc. Coded using <a href="https://github.com/openEHR/terminology/blob/master/openEHR_RM/en/openehr_terminology.xml">openEHR vocabulary <code>event math function</code></a>. Default value <code>640&#124;actual&#124;</code>, meaning 'actual value'.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>interval_start_time</strong> (): <code><a href="#_date_time_class">Date_time</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Start time of the interval of this event.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Math_function_validity</em>: <code>terminology (Terminology_id_openehr).has_code_for_group_id (Group_id_event_math_function, math_function.defining_code)</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Interval_start_time_valid</em>: <code>interval_start_time = time - width</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_history_instance_structures"><a class="anchor" href="#_history_instance_structures"></a>2.5. History Instance Structures</h3>
+<div class="sect3">
+<h4 id="_single_sample"><a class="anchor" href="#_single_sample"></a>2.5.1. Single Sample</h4>
+<div class="paragraph">
+<p>The following diagram illustrates a single weight measurement. The Event objects contain the timing information,
+which in this case is simply the time of measurement (the origin).</p>
+</div>
+<div id="history_single_sample" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_single_sample.svg" alt="history single sample" width="50%">
+</div>
+<div class="title">Figure 7. Single sample Instance Structure</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_minute_blood_pressure_averages"><a class="anchor" href="#_5_minute_blood_pressure_averages"></a>2.5.2. 5-minute Blood Pressure Averages</h4>
+<div class="paragraph">
+<p>The next figure illustrates two Interval events representing 5 minute blood pressure averages, the first at
+5 minutes' offset from an initial event and lasting 5 minutes, the second 5 minutes later.</p>
+</div>
+<div id="history_bp_series_instances" class="imageblock text-center text-center">
+<div class="content">
+<img src="patterns/diagrams/history_bp_series_instances.svg" alt="history bp series instances" width="60%">
+</div>
+<div class="title">Figure 8. Blood Pressure Series History Instance Structure</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_participation_package"><a class="anchor" href="#_participation_package"></a>3. Participation Package</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_2"><a class="anchor" href="#_overview_2"></a>3.1. Overview</h3>
+<div class="paragraph">
+<p>The classes presented in this section provide a means of including references to external entities, including demographic entities, that are represented in external systems.</p>
+</div>
+<div id="participation_package" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-patterns.data_structures.participation.svg" alt="BASE patterns.data structures.participation">
+</div>
+<div class="title">Figure 9. patterns.entity_reference Package</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_design_principles"><a class="anchor" href="#_design_principles"></a>3.2. Design Principles</h3>
+<div class="sect3">
+<h4 id="_referring_to_external_entities"><a class="anchor" href="#_referring_to_external_entities"></a>3.2.1. Referring to External Entities</h4>
+<div class="paragraph">
+<p>External demographic parties (individuals, institutions, other autonomous entities) may be referenced from S2 platform data either via a direct <code>Entity_ref_node</code> reference, or via a <em>participation</em> object. The former indicates the entity, with the kind of participation being known, while the latter additionally enables representation of the type of participation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_descriptions_3"><a class="anchor" href="#_class_descriptions_3"></a>3.3. Class Descriptions</h3>
+<div class="sect3">
+<h4 id="_participation_class"><a class="anchor" href="#_participation_class"></a>3.3.1. Participation Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Participation</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Model of a participation of a Party (any Actor or Role) in an activity.  Used to represent any participation of a Party in some activity, which is not  explicitly in the model, e.g. assisting nurse. Can be used to record past or  future participations.</p>
+</div>
+<div class="paragraph">
+<p>Should not be used in place of more permanent relationships between demographic entities.</p>
+</div>
+<div class="paragraph">
+<p>GRAPHITE: equivalent of Attribution CEM</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_locatable_class">Locatable</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>function</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The function of the Party in this participation. Note that a given party might participate in more than one way in a particular activity.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>role</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Role of participant within the organisation, e.g. cardiologist, senior nurse.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>performer</strong>: <code><a href="#_entity_ref_node_class">Entity_ref_node</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The id and possibly demographic system link of the party participating in the activity.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mode</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional field for recording the 'mode' of the performer / activity interaction, e.g. present, by telephone, by email etc.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>time</strong>: <code><a href="#_interval_class">Interval</a>&lt;<a href="#_date_time_class">Date_time</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The time interval during which the participation took place, if it is used in an observational context (i.e. recording facts about the past); or the intended time interval of the participation when used in future contexts, such as EHR Instructions.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references"><a class="anchor" href="#_references"></a>References</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-11-14 11:40:00 -0700
+</div>
+</div>
+</body>
+</html>

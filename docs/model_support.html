@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="description" content="S2 Model support specification">
+<meta name="keywords" content="openehr, s2, identifiers, types">
+<title>S2 Model support structures</title>
+<link rel="stylesheet" href="https://platform.s2health.org/css/s2.css">
+<link rel="stylesheet" href="https://platform.s2health.org/css/pygments-default.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#_s2_model_support_structures">S2 Model support structures</a>
+<ul class="sectlevel1">
+<li><a href="#_revision_history">Revision History</a></li>
+<li><a href="#_acknowledgements">Acknowledgements</a>
+<ul class="sectlevel2">
+<li><a href="#_prior_art">Prior Art</a></li>
+<li><a href="#_trademarks">Trademarks</a></li>
+</ul>
+</li>
+<li><a href="#_preface">1. Preface</a>
+<ul class="sectlevel2">
+<li><a href="#_purpose">1.1. Purpose</a></li>
+<li><a href="#_related_documents">1.2. Related Documents</a></li>
+<li><a href="#_status">1.3. Status</a></li>
+<li><a href="#_feedback">1.4. Feedback</a></li>
+</ul>
+</li>
+<li><a href="#_overview">2. Overview</a></li>
+<li><a href="#_definitions_package">3. Definitions Package</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_2">3.1. Overview</a></li>
+<li><a href="#_class_definitions">3.2. Class Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#_basic_definitions_class">3.2.1. Basic_definitions Class</a></li>
+<li><a href="#_s2_definitions_class">3.2.2. S2_definitions Class</a></li>
+<li><a href="#_validity_kind_enumeration">3.2.3. Validity_kind Enumeration</a></li>
+<li><a href="#_version_status_enumeration">3.2.4. Version_status Enumeration</a></li>
+<li><a href="#_sample_function_kind_enumeration">3.2.5. Sample_function_kind Enumeration</a></li>
+<li><a href="#_trend_kind_enumeration">3.2.6. Trend_kind Enumeration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_builtins_package">4. Builtins Package</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_3">4.1. Overview</a></li>
+<li><a href="#_class_definitions_2">4.2. Class Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#_env_interface">4.2.1. Env Interface</a></li>
+<li><a href="#_locale_interface">4.2.2. Locale Interface</a></li>
+<li><a href="#_statistical_evaluator_interface">4.2.3. Statistical_evaluator Interface</a></li>
+<li><a href="#_math_interface">4.2.4. Math Interface</a></li>
+<li><a href="#_quantity_converter_interface">4.2.5. Quantity_converter Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_identification_package">5. Identification Package</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_4">5.1. Overview</a></li>
+<li><a href="#_requirements">5.2. Requirements</a></li>
+<li><a href="#_design_approach">5.3. Design Approach</a></li>
+<li><a href="#_instance_identifiers">5.4. Instance Identifiers</a>
+<ul class="sectlevel3">
+<li><a href="#_identifying_versions_within_openehr_versioned_containers">5.4.1. Identifying Versions within openEHR Versioned Containers</a></li>
+<li><a href="#_class_descriptions">5.4.2. Class Descriptions</a>
+<ul class="sectlevel4">
+<li><a href="#_object_id_class">5.4.2.1. Object_id Class</a></li>
+<li><a href="#_version_tree_id_class">5.4.2.2. Version_tree_id Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_knowledge_artifact_identifiers">5.5. Knowledge Artifact Identifiers</a>
+<ul class="sectlevel3">
+<li><a href="#_character_set">5.5.1. Character Set</a></li>
+<li><a href="#_case">5.5.2. Case</a></li>
+<li><a href="#_archetype_identifiers">5.5.3. Archetype Identifiers</a></li>
+<li><a href="#_terminology_identifiers">5.5.4. Terminology Identifiers</a></li>
+<li><a href="#_equivalence">5.5.5. Equivalence</a></li>
+<li><a href="#_class_descriptions_2">5.5.6. Class Descriptions</a>
+<ul class="sectlevel4">
+<li><a href="#_artifact_id_class">5.5.6.1. Artifact_id Class</a></li>
+<li><a href="#_archetype_id_class">5.5.6.2. Archetype_id Class</a></li>
+<li><a href="#_archetype_hrid_class">5.5.6.3. Archetype_hrid Class</a></li>
+<li><a href="#_terminology_id_class">5.5.6.4. Terminology_id Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_references">5.6. References</a>
+<ul class="sectlevel3">
+<li><a href="#_class_descriptions_3">5.6.1. Class Descriptions</a>
+<ul class="sectlevel4">
+<li><a href="#_object_ref_class">5.6.1.1. Object_ref Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_syntaxes">5.7. Syntaxes</a></li>
+</ul>
+</li>
+<li><a href="#_archetyped_package">6. Archetyped Package</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_5">6.1. Overview</a>
+<ul class="sectlevel3">
+<li><a href="#_the_pathable_class">6.1.1. The Pathable Class</a></li>
+<li><a href="#_the_locatable_class">6.1.2. The Locatable Class</a>
+<ul class="sectlevel4">
+<li><a href="#_unique_node_identification">6.1.2.1. Unique Node Identification</a></li>
+</ul>
+</li>
+<li><a href="#_feeder_system_audit">6.1.3. Feeder System Audit</a>
+<ul class="sectlevel4">
+<li><a href="#_requirements_2">6.1.3.1. Requirements</a></li>
+<li><a href="#_design_principles">6.1.3.2. Design Principles</a></li>
+<li><a href="#_meta_data">6.1.3.3. Meta-data</a></li>
+<li><a href="#_traceability">6.1.3.4. Traceability</a></li>
+<li><a href="#_version_detection">6.1.3.5. Version Detection</a></li>
+<li><a href="#_duplicate_detection">6.1.3.6. Duplicate Detection</a></li>
+<li><a href="#_differentially_coded_data">6.1.3.7. Differentially Coded Data</a></li>
+<li><a href="#_using_feeder_audit_in_converted_data">6.1.3.8. Using Feeder Audit in Converted Data</a></li>
+<li><a href="#_structural_correspondence">6.1.3.9. Structural Correspondence</a></li>
+<li><a href="#_original_content">6.1.3.10. Original Content</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_class_definitions_3">6.2. Class Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#_pathable_class">6.2.1. Pathable Class</a></li>
+<li><a href="#_locatable_class">6.2.2. Locatable Class</a></li>
+<li><a href="#_archetyped_class">6.2.3. Archetyped Class</a></li>
+<li><a href="#_link_class">6.2.4. Link Class</a></li>
+<li><a href="#_feeder_audit_class">6.2.5. Feeder_audit Class</a></li>
+<li><a href="#_feeder_audit_details_class">6.2.6. Feeder_audit_details Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="http://s2health.org/resources/logos/s2logo.svg" alt="S2 logo">
+</div>
+</div>
+</div>
+</div>
+<h1 id="_s2_model_support_structures" class="sect0"><a class="anchor" href="#_s2_model_support_structures"></a>S2 Model support structures</h1>
+<div class="openblock partintro">
+<div class="content">
+<table class="tableblock frame-all grid-all fit-content spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="2"><strong>Issuer</strong>: <a href="http://www.s2health.org" target="_blank" rel="noopener">S2 Health</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release</strong>: BASE latest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Status</strong>: DEVELOPMENT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Revision</strong>: <a href="#latest_issue">0.8.6</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Date</strong>: <a href="#latest_issue_date">07 Oct 2024</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Keywords</strong>: openehr, s2, identifiers, types</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="2">&#169; 2023 - 2025 S2 Health</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><a href="http://www.s2health.org" target="_blank" rel="noopener">S2 Health</a> is an independent, non-profit foundation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Licence</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://specifications.openehr.org/images/cc-by-nd-88x31.png" alt="image"></span> Creative Commons Attribution-NoDerivs 4.0 Unported. <a href="https://creativecommons.org/licenses/by-nd/4.0/" class="bare">https://creativecommons.org/licenses/by-nd/4.0/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Support</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issues: <a href="https://platform.s2health.org/components/BASE/open_issues" target="_blank" rel="noopener">Report an Issue</a><br>
+ Web: <a href="https://platform.s2health.org" target="_blank" rel="noopener">https://platform.s2health.org</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_revision_history"><a class="anchor" href="#_revision_history"></a>Revision History</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 54.5454%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1819%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Issue</th>
+<th class="tableblock halign-left valign-top">Details</th>
+<th class="tableblock halign-left valign-top">Raiser</th>
+<th class="tableblock halign-left valign-top">Completed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.7</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.6</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="latest_issue"></a>0.8.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-59" target="_blank" rel="noopener">SBASE-59</a>. Simplify <code>Object_ref</code> and <code>Object_id</code>; remove <code>Locatable_ref</code> and <code>Object_version_id</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D Perkins,<br>
+B Jures,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="latest_issue_date"></a>07 Oct 2024</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.8.5</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.7.5</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-47" target="_blank" rel="noopener">SBASE-47</a>. Refactor <code>Locatable.code</code> and <code>original_code</code>; add <code>Info_item</code>;<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19 Oct 2023</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.7.0</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.7.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://platform.s2health.org/tickets/SBASE-16" target="_blank" rel="noopener">SBASE-16</a>. Define <code>Locatable.<em>code</em></code> field as taxonomic marker, and move <code>Feeder_audit.<em>original_code</em></code> to <code>Locatable</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J Coyle,<br>
+N Davis,<br>
+S Huff,<br>
+T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17 Oct 2023</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>BASE Release 0.6.0</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.6.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial Writing: based on openEHR Base Types Model</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T Beale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 Apr 2023</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acknowledgements"><a class="anchor" href="#_acknowledgements"></a>Acknowledgements</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prior_art"><a class="anchor" href="#_prior_art"></a>Prior Art</h3>
+<div class="paragraph">
+<p>This specification is largely derived from the <a href="https://specifications.openehr.org/releases/BASE/latest/model_support.html" target="_blank" rel="noopener">S2 Base Types</a> specification.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trademarks"><a class="anchor" href="#_trademarks"></a>Trademarks</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>'openEHR' is a registered trademark of the openEHR Foundation</p>
+</li>
+<li>
+<p>'Graphite Health' is a registered trademark of Graphite Health</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preface"><a class="anchor" href="#_preface"></a>1. Preface</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_purpose"><a class="anchor" href="#_purpose"></a>1.1. Purpose</h3>
+<div class="paragraph">
+<p>This document describes the S2 Base Types, a collection of general types used by other specifications.</p>
+</div>
+<div class="paragraph">
+<p>The intended audience includes implementers and health IT standards experts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_related_documents"><a class="anchor" href="#_related_documents"></a>1.2. Related Documents</h3>
+<div class="paragraph">
+<p>Prerequisite documents for reading this document include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html" target="_blank" rel="noopener">openEHR Architecture Overview</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status"><a class="anchor" href="#_status"></a>1.3. Status</h3>
+<div class="paragraph">
+<p>This specification is in the DEVELOPMENT state. The development version of this document can be found at <a href="https://platform.s2health.org/releases/BASE/latest/model_support.html" target="_blank" rel="noopener">https://platform.s2health.org/releases/BASE/latest/model_support.html</a>.</p>
+</div>
+<div class="paragraph">
+<p>Known omissions or questions are indicated in the text with a 'to be determined' paragraph, as follows:</p>
+</div>
+<div class="paragraph tbd">
+<p><strong>TBD</strong>: (example To Be Determined paragraph)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_feedback"><a class="anchor" href="#_feedback"></a>1.4. Feedback</h3>
+<div class="paragraph">
+<p>Feedback may be provided on the <a href="https://discourse.s2health.org" target="_blank" rel="noopener">S2 forum</a>.</p>
+</div>
+<div class="paragraph">
+<p>Issues may be raised on the <a href="https://platform.s2health.org/components/BASE/open_issues" target="_blank" rel="noopener">specifications Problem Report tracker</a>.</p>
+</div>
+<div class="paragraph">
+<p>To see changes made due to previously reported issues, see the <a href="https://platform.s2health.org/components/BASE/history" target="_blank" rel="noopener">BASE component Change Request tracker</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview"><a class="anchor" href="#_overview"></a>2. Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The S2 Base Types (<code>org.s2.model_support</code> package) consist of meta-model elements used globally throughout the S2 components and specifications, including definitions, various enumerations, built-in types providing utility functions, identifier types and terminology-related types. The latter two categories are intended to support all kinds of references: to terminology terms, informational objects, real world entities.</p>
+</div>
+<div class="paragraph">
+<p>The package structure is illustrated below.</p>
+</div>
+<div id="model_support_packages" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-model_support-packages.svg" alt="BASE model support packages">
+</div>
+<div class="title">Figure 1. base.model_support Package</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_definitions_package"><a class="anchor" href="#_definitions_package"></a>3. Definitions Package</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_2"><a class="anchor" href="#_overview_2"></a>3.1. Overview</h3>
+<div class="paragraph">
+<p>The <code>model_support.definitions</code> package shown below defines symbolic definitions used by the S2 models.</p>
+</div>
+<div id="base_definition_types" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-model_support.definitions.svg" alt="BASE model support.definitions" width="65%">
+</div>
+<div class="title">Figure 2. base.model_support.definitions package</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_definitions"><a class="anchor" href="#_class_definitions"></a>3.2. Class Definitions</h3>
+<div class="sect3">
+<h4 id="_basic_definitions_class"><a class="anchor" href="#_basic_definitions_class"></a>3.2.1. Basic_definitions Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Basic_definitions</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Defines globally used constant values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Constants</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CR</strong>: <code>char&#160;=&#160;'\015'</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Carriage return character.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>LF</strong>: <code>char&#160;=&#160;'\012'</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Line feed character.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Any_type_name</strong>: <code><a href="#_string_class">String</a>&#160;=&#160;"Any"</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Regex_any_pattern</strong>: <code><a href="#_string_class">String</a>&#160;=&#160;".&#42;"</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Default_encoding</strong>: <code><a href="#_string_class">String</a>&#160;=&#160;"UTF-8"</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>None_type_name</strong>: <code><a href="#_string_class">String</a>&#160;=&#160;"None"</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_s2_definitions_class"><a class="anchor" href="#_s2_definitions_class"></a>3.2.2. S2_definitions Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>S2_definitions</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Inheritance class to provide access to constants defined in other packages.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_basic_definitions_class">Basic_definitions</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Local_terminology_id</strong>: <code><a href="#_string_class">String</a><br>
+{default&#160;=&#160;"local"}</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Predefined terminology identifier to indicate it is local to the knowledge resource in which it occurs, e.g. an archetype</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_validity_kind_enumeration"><a class="anchor" href="#_validity_kind_enumeration"></a>3.2.3. Validity_kind Enumeration</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Enumeration</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Validity_kind</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>An enumeration of three values that may commonly occur in constraint models.</p>
+</div>
+<div class="paragraph">
+<p>Use as the type of any attribute within this model, which expresses constraint on some attribute in a class in a reference model. For example to indicate validity of Date/Time fields.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mandatory</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Constant to indicate mandatory presence of something.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Constant to indicate optional presence of something.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prohibited</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Constant to indicate disallowed presence of something.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_version_status_enumeration"><a class="anchor" href="#_version_status_enumeration"></a>3.2.4. Version_status Enumeration</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Enumeration</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Version_status</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Status of a versioned artefact, as one of a number of possible values: uncontrolled, prerelease, release, build.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alpha</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value representing a version which is 'unstable', i.e. contains an unknown size of change with respect to its base version. Rendered with the build number as a string in the form <code>N.M.P-alpha.B</code> e.g. <code>2.0.1-alpha.154</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beta</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value representing a version which is 'beta', i.e. contains an unknown but reducing size of change with respect to its base version. Rendered with the build number as a string in the form <code>N.M.P-beta.B</code> e.g. <code>2.0.1-beta.154</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">release_candidate</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value representing a version which is 'release candidate', i.e. contains only patch-level changes on the base version. Rendered as a string as <code>N.M.P-rc.B</code> e.g. <code>2.0.1-rc.27</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">released</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value representing a version which is 'released', i.e. is the definitive base version. <code>N.M.P</code> e.g. <code>2.0.1</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">build</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value representing a version which is a build of the current base release. Rendered with the build number as a string in the form <code>N.M.P+B</code> e.g. <code>2.0.1+33</code>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_sample_function_kind_enumeration"><a class="anchor" href="#_sample_function_kind_enumeration"></a>3.2.5. Sample_function_kind Enumeration</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Enumeration</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Sample_function_kind</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">actual</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minimum</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maximum</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mean</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mode</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">median</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">increase</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decrease</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">change</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">total</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_trend_kind_enumeration"><a class="anchor" href="#_trend_kind_enumeration"></a>3.2.6. Trend_kind Enumeration</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Enumeration</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Trend_kind</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">variation</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decrease</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">increase</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">change</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_builtins_package"><a class="anchor" href="#_builtins_package"></a>4. Builtins Package</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_3"><a class="anchor" href="#_overview_3"></a>4.1. Overview</h3>
+<div class="paragraph">
+<p>The <code>model_support.builtins</code> package includes interface classes that provide common utility functions. It is shown below.</p>
+</div>
+<div id="base_builtins" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-model_support.builtins.svg" alt="BASE model support.builtins" width="100%">
+</div>
+<div class="title">Figure 3. base.model_support.builtins Package</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_definitions_2"><a class="anchor" href="#_class_definitions_2"></a>4.2. Class Definitions</h3>
+<div class="sect3">
+<h4 id="_env_interface"><a class="anchor" href="#_env_interface"></a>4.2.1. Env Interface</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Interface</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Env</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Class representing the real-world environment, providing basic information like current time, date, etc.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>current_date</strong> (): <code><a href="#_date_class">Date</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return today&#8217;s date in the current locale.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>current_time</strong> (): <code><a href="#_time_class">Time</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return current time in the current locale.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>current_date_time</strong> (): <code><a href="#_date_time_class">Date_time</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return current date/time in the current locale.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>current_time_zone</strong> (): <code><a href="#_timezone_class">Timezone</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return the timezone of the current locale.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_locale_interface"><a class="anchor" href="#_locale_interface"></a>4.2.2. Locale Interface</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Interface</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Locale</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Class representing current Locale.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>primary_language</strong> (): <code><a href="#_terminology_code_class">Terminology_code</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Primary language of the current locale.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_statistical_evaluator_interface"><a class="anchor" href="#_statistical_evaluator_interface"></a>4.2.3. Statistical_evaluator Interface</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Interface</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Statistical_evaluator</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>A basic statistical evaluator class providing common functions on collections of numbers.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sum</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sum of a container of values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>avg</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Synonym for <code><em>mean()</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mean</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Mean (arithmetic average) of a container of values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>median</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+): <code><a href="#_numeric_class">Numeric</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return numerically centre value in ordered form of container contents.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>mode</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+): <code><a href="#_numeric_class">Numeric</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Mode (most frequent) of a container of values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>max</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+): <code><a href="#_numeric_class">Numeric</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Maximum of a container of values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>min</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+): <code><a href="#_numeric_class">Numeric</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Minimum of a container of values.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>count</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+): <code><a href="#_numeric_class">Numeric</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return the number of items in <code><em>vals</em></code>, i.e. <code><em>vals.count</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>std_dev</strong> (<br>
+vals: <code><a href="#_container_class">Container</a>&lt;<a href="#_numeric_class">Numeric</a>&gt;[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Compute standard deviation of a container of values.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_math_interface"><a class="anchor" href="#_math_interface"></a>4.2.4. Math Interface</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Interface</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Math</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Mathematical computation.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ln</strong> (<br>
+v: <code><a href="#_numeric_class">Numeric</a>[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Compute natural log of v.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>log</strong> (<br>
+v: <code><a href="#_numeric_class">Numeric</a>[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Compute base 10 log of v.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sin</strong> (<br>
+(v: <code><a href="#_numeric_class">Numeric</a>[1]</code><br>
+)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Compute sin(v).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_quantity_converter_interface"><a class="anchor" href="#_quantity_converter_interface"></a>4.2.5. Quantity_converter Interface</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Interface</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Quantity_converter</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Quantity conversion.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>convert_value</strong> (<br>
+value: <code><a href="#_decimal_class">Decimal</a>[1]</code>,<br>
+from_units: <code><a href="#_string_class">String</a>[1]</code>,<br>
+to_units: <code><a href="#_string_class">String</a>[1]</code>,<br>
+property: <code><a href="#_terminology_code_class">Terminology_code</a>[1]</code><br>
+): <code><a href="#_real_class">Real</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Convert <code><em>value</em></code> of physical property type (e.g. 'pressure' etc) from one units to another.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_identification_package"><a class="anchor" href="#_identification_package"></a>5. Identification Package</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_4"><a class="anchor" href="#_overview_4"></a>5.1. Overview</h3>
+<div class="paragraph">
+<p>The <code>model_support.identification</code> package describes a model of references and identifiers for information entities and is illustrated below.</p>
+</div>
+<div id="base_identification_types" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-model_support.identification.svg" alt="BASE model support.identification">
+</div>
+<div class="title">Figure 4. base.model_support.identification Package</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_requirements"><a class="anchor" href="#_requirements"></a>5.2. Requirements</h3>
+<div class="paragraph">
+<p>The types within this package are designed for identifying and referencing the following kinds of informational entities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>knowledge artefacts</strong>: such as terminologies and terms, archetypes, etc.;</p>
+</li>
+<li>
+<p><strong>data instances</strong>: including healthcare-related data, demographic data and so on.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The former category is understood as 'source' artifacts in the same sense as 'source code', and accordingly have human-comprehensible identifiers in the same way that programming source files do. Compiled or generated forms of these artifacts may also have machine identifiers.</p>
+</div>
+<div class="paragraph">
+<p>The latter category is understood as technical instances of model entities, for which computational identifiers are required.</p>
+</div>
+<div class="paragraph">
+<p>Identifiers for both categories of entity require support for versioning. For knowledge artifacts, versions are assumed to be represented by the 3-part <a href="http://semver.org" target="_blank" rel="noopener">Semantic Versioning</a> system. For data artifacts, versions follow the branching model used in distributed version control systems, such that instances of an original item that have been subsequently modified in different systems ('forking') can be distinguished and merged if necessary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_design_approach"><a class="anchor" href="#_design_approach"></a>5.3. Design Approach</h3>
+<div class="paragraph">
+<p>A key design decision has been to choose a string representation for all identifiers, with sub-parts being made available by appropriate functions which perform simple parsing on the string. This ensures that the data representation of identifiers (e.g. in XML, JSON etc.) is as small as possible, while retaining object-oriented typing.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instance_identifiers"><a class="anchor" href="#_instance_identifiers"></a>5.4. Instance Identifiers</h3>
+<div class="paragraph">
+<p>The <code>OBJECT_ID</code> type and its descendants define instance identifiers for use within openEHR systems.</p>
+</div>
+<div class="sect3">
+<h4 id="_identifying_versions_within_openehr_versioned_containers"><a class="anchor" href="#_identifying_versions_within_openehr_versioned_containers"></a>5.4.1. Identifying Versions within openEHR Versioned Containers</h4>
+<div class="paragraph">
+<p>The <code>OBJECT_VERSION_ID</code> defines the semantics of the scheme used in openEHR for identifying versions within a versioned container, and uses a three-part identifier, consisting of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><em>object_id</em></code>: the identifier of the version container, in the form of a Uid, typically a Uuid;</p>
+</li>
+<li>
+<p><code><em>creating_system_id</em></code>: the identifier of the system in which this version was created, of type Uid, typically a reverse domain identifier;</p>
+</li>
+<li>
+<p><code><em>version_tree_id</em></code>: the location in the version tree, as a 1- or 3-part numeric identifier, where the latter variant expresses branching; this is modelled using the <code>VERSION_TREE_ID</code> type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following provides a typical example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>87284370-2D4B-4e3d-A3F3-F303D2F4F34B::uk.nhs.ehr1::2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Under this scheme, multiple versions in the same container all have the same value for <code><em>object_id</em></code>, whilst their location in the version tree is given by the combination of the version tree identifier and the identifier of the creating system.</p>
+</div>
+<div class="paragraph">
+<p>The requirements on the <code><em>creating_system_id</em></code> part of the identifier are that it be unique per system, and that it be easy to obtain or generate. It is also helpful if it is a meaningful identifier. The two most practical candidates appear to be Uuids (which are not meaningful, but are easy to generate) and reverse internet domain identifiers (these are easy to determine if the system has an internet address, and are meaningful and directly processable, however unconnected systems pose a problem). ISO OIDs might also be used. All of these identifier types are accommodated via the use of Uid. A full explanation of the version identification scheme and its capabilities is given in the {S2base_change_control}#_change_control_package[openEHR <code>change_control</code> package].</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_class_descriptions"><a class="anchor" href="#_class_descriptions"></a>5.4.2. Class Descriptions</h4>
+<div class="sect4">
+<h5 id="_object_id_class"><a class="anchor" href="#_object_id_class"></a>5.4.2.1. Object_id Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Object_id</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Identifier of of an <code>object_version</code> instance.</p>
+</div>
+<div class="paragraph">
+<p>Object identifiers are used inside an object to identify that object, in a similar way to a 'primary key' in a relational DB. To identify an object in another service, use an <code>Object_ref</code>,</p>
+</div>
+<div class="paragraph">
+<p>If used in a 3-part form, takes the lexical form: <code>object_id  '::' creating_system_id  '::' version_tree_id</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The value of the id in the form defined below.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>object_id</strong> (): <code><a href="#_uuid_class">Uuid</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Unique identifier for logical object of which this identifier identifies one version; normally the <code><em>object_id</em></code> will be the unique identifier of the version container containing the version referred to by this <code>OBJECT_VERSION_ID</code> instance.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>creating_system_id</strong> (): <code><a href="#_internet_id_class">Internet_id</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifier of the system that created the Version corresponding to this Object version id.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>version_tree_id</strong> (): <code><a href="#_version_tree_id_class">Version_tree_id</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Tree identifier of this version with respect to other versions in the same version tree, as either 1 or 3 part dot-separated numbers, e.g.  1 ,  2.1.4 .</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>is_branch</strong> (): <code><a href="#_boolean_class">Boolean</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if this version identifier represents a branch.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Has_extension_valid</em>: <code>extension.is_empty xor has_extension</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_version_tree_id_class"><a class="anchor" href="#_version_tree_id_class"></a>5.4.2.2. Version_tree_id Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Version_tree_id</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Version tree identifier for one version. Lexical form:</p>
+</div>
+<div class="paragraph">
+<p><code>trunk_version [  '.' branch_number  '.' branch_version ]</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>String form of this identifier.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>trunk_version</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Trunk version number; numbering starts at 1.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>is_branch</strong> (): <code><a href="#_boolean_class">Boolean</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if this version identifier represents a branch, i.e. has <code><em>branch_number()</em></code> and <code><em>branch_version()</em></code> parts.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>branch_number</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Number of branch from the trunk point; numbering starts at 1.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>branch_version</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Version of the branch; numbering starts at 1.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Value_valid</em>: <code>not value.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Trunk_version_valid</em>: <code>trunk_version /= Void and then trunk_version.is_integer and then trunk_version.as_integer &gt;= 1</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Branch_number_valid</em>: <code>branch_number /= Void implies branch_number.is_integer and then branch_number.as_integer &gt;= 1</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Branch_version_valid</em>: <code>branch_version /= Void implies branch_version.is_integer and then branch_version.as_integer &gt;= 1</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Branch_validity</em>: <code>(branch_number = Void and branch_version = Void ) xor (branch_number /= Void and branch_version /= Void )</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Is_branch_validity</em>: <code>is_branch xor branch_number = Void</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Is_first_validity</em>: <code>not is_first xor trunk_version.is_equal(“1”)</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_knowledge_artifact_identifiers"><a class="anchor" href="#_knowledge_artifact_identifiers"></a>5.5. Knowledge Artifact Identifiers</h3>
+<div class="paragraph">
+<p>Knowledge artifact identifiers are defined under the <code>Artifact_id</code> hierarchy.</p>
+</div>
+<div class="sect3">
+<h4 id="_character_set"><a class="anchor" href="#_character_set"></a>5.5.1. Character Set</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_case"><a class="anchor" href="#_case"></a>5.5.2. Case</h4>
+<div class="paragraph">
+<p>TBD</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_archetype_identifiers"><a class="anchor" href="#_archetype_identifiers"></a>5.5.3. Archetype Identifiers</h4>
+<div class="paragraph">
+<p>The <code>ARCHETYPE_ID</code> subtype defines a multi-axial identifier for openEHR archetypes and templates, meaning that each identifier instance denotes a single archetype within a multi-dimensional space. The space is can be thought of as 3-dimensional, or as a versioned 2-dimensional space, consisting of the following axes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>reference model entity, i.e. target of archetype, defined as:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>name of model issuer;</p>
+</li>
+<li>
+<p>name of model (there may be more than one from the same issuer);</p>
+</li>
+<li>
+<p>name of concept in model, i.e. class name</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>domain concept;</p>
+</li>
+<li>
+<p>version.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The three outer sections are delimited by '.' characters, while the parts of the first section are delimited by <code>-</code> characters. As with any multi-axial identifier, the underlying principle of an archetype identifier is that all parts of the identifier must be able to be considered immutable. This means that no variable characteristic of an archetype (e.g. accrediting authority, which might change due to later accreditation by another authority, or may be multiple) can be included in its identifier. The explicit inclusion of version as part of the identifier means that two 'versions' of an archetype are actually two distinct archetypes. (The rules for archetype versions, revisions and other variants are given in the <a href="https://specifications.openehr.org/releases/AM/latest/Identification.html">openEHR Archetype Identification specification</a>.)</p>
+</div>
+<div class="paragraph">
+<p>Examples of archetype identifiers include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s2-EHR-Section.physical_examination.v2</code></p>
+</li>
+<li>
+<p><code>s2-EHR-Section.physical_examination-prenatal.v1</code></p>
+</li>
+<li>
+<p><code>openEHR-EHR-Observation.progress_note-naturopathy.v2</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The grammar of archetype identifiers is given below in <a href="#_syntaxes">Section 5.7</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_terminology_identifiers"><a class="anchor" href="#_terminology_identifiers"></a>5.5.4. Terminology Identifiers</h4>
+<div class="paragraph">
+<p>The <code>TERMINOLOGY_ID</code> subtype defines a globally unique single string identifier for terminologies. Terminology identifier values may include a version, either as part of the name, and/or according to the syntax defined in section 4.3.12 below. Examples of terminology identifiers include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"SNOMED-CT"</p>
+</li>
+<li>
+<p>"ICD9(1999)"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Currently the best authoritative source for the name part of the identifier (i.e. the part excluding the optional version part in parentheses) is the <a href="https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html">US National Library of Medicine UMLS identifiers for included terminologies</a>.</p>
+</div>
+<div class="paragraph">
+<p>The scheme defined by the <code>TERMINOLOGY_ID</code> class provides for the situation where major 'versions' of a terminology such as the World Health Organisation&#8217;s 'ICD10' and 'ICD10AM' (AM = 'Australian modifications') can accommodate a finer grain of versioning or revisioning, e.g.:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"ICD10AM(3rd_ed)"</p>
+</li>
+<li>
+<p>"ICD10AM(4th_ed)"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The version part of a terminology identifier is in theory only absolutely necessary for those terminologies which break the rule that the concept being identified with a code loses or changes its meaning over versions of the terminology. This should not be the case for modern terminologies and ontologies, particularly those designed since the publication of Cimino&#8217;s 'desiderata' <span class="citation">(<a href="#Cimino1997">Cimino&#44; 1997</a>)</span> of which the principle of 'concept permanence' is applicable here - "A concept&#8217;s meaning cannot change and it cannot be deleted from the vocabulary". However, there may be older terminologies, or specialised terminologies which may not have obeyed these rules, but which are still used; version ids should always be used for these. At a practical level, versions may be included routinely in some systems to support the potential medico-legal need to prove that a) a given code was in fact defined in the terminology (it may not have existed in an earlier edition) and b) that the meaning assumed in the system
+was indeed the one assigned to it in the particular version or edition.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_equivalence"><a class="anchor" href="#_equivalence"></a>5.5.5. Equivalence</h4>
+<div class="paragraph">
+<p>Although there are anomalies in some published terminologies and between some versions or editions of the same terminology, two terminology identifiers that are the same, disregarding the version part, can usually be considered as semantic equivalents in the terminology world. However, depending on which source of strings have been chosen for the name part of the identifier, two different identifiers may also indicate the same terminology, e.g. "ICD10AM_2000" (NLM identifier used in UMLS) and "ICD10AM(2nd_ed)" refer to the same thing.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_class_descriptions_2"><a class="anchor" href="#_class_descriptions_2"></a>5.5.6. Class Descriptions</h4>
+<div class="sect4">
+<h5 id="_artifact_id_class"><a class="anchor" href="#_artifact_id_class"></a>5.5.6.1. Artifact_id Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong><em>Artifact_id (abstract)</em></strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Identifier type for source knowledge artefacts.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>String identifier value; syntax defined in descendants.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_archetype_id_class"><a class="anchor" href="#_archetype_id_class"></a>5.5.6.2. Archetype_id Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Archetype_id</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Identifier for archetypes. Ideally these would identify globally unique archetypes.</p>
+</div>
+<div class="paragraph">
+<p>Lexical form: <code>rm_originator  '-' rm_name  '-' rm_entity  '.' concept_name {  '-' specialisation }*  '.v' number</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_artifact_id_class">Artifact_id</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>to_hrid</strong> (): <code><a href="#_archetype_hrid_class">Archetype_hrid</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Generate an <code>Archetype_hrid</code>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_archetype_hrid_class"><a class="anchor" href="#_archetype_hrid_class"></a>5.5.6.3. Archetype_hrid Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Archetype_hrid</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Human-readable structured identifier (HRID) for an openEHR archetype or template.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>namespace</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Reverse domain name namespace identifier.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>rm_publisher</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of the Reference Model publisher.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>rm_package</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of the package in whose reachability graph the <code><em>rm_class</em></code> class is found (there can be more than one possibility in many reference models).</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>rm_class</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of the root class of this archetype.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>concept_id</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The short concept name of the archetype as used in the multi-axial <code><em>archetype_hrid</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>release_version</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The numeric version of this archetype consisting of 3 parts, e.g. <code>"1.8.2"</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>version_status</strong>: <code><a href="#_version_status_enumeration">Version_status</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The status of the version, i.e.:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>released: (empty string)</p>
+</li>
+<li>
+<p>release_candidate: <code>"rc"</code></p>
+</li>
+<li>
+<p>alpha: <code>"alpha"</code></p>
+</li>
+<li>
+<p>beta: <code>"beta"</code></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>build_count</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The build count since last increment of any version part.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>qualified_rm_class</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Globally qualified reference model entity, e.g.  <code>"openehr-EHR-Observation"</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>patch_version</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Patch version of this archetype, extracted from <code><em>release_version</em></code>. Equivalent to patch version in patch version in <code>semver.org</code> sytem.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>semantic_id</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The 'interface' form of the HRID, i.e. down to the major version.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>major_version</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Major version of this archetype, extracted from <code><em>release_version</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>minor_version</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Minor version of this archetype, extracted from <code><em>release_version</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>version_id</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Full version identifier string, based on <code><em>release_version</em></code>, <code><em>version_status</em></code>, and <code><em>build_count</em></code> e.g. <code>"1.8.2-rc.4"</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>physical_id</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The 'physical' form of the HRID, i.e. with complete version information specified by <code><em>version_id()</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>to_string</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_rm_publisher_validity</em>: <code>not rm_publisher.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_rm_package_validity</em>: <code>not rm_package.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_class_name_validity</em>: <code>not rm_class.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_concept_id_validity</em>: <code>not concept_id.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Inv_release_version_validity</em>: <code>valid_version (release_version)</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_terminology_id_class"><a class="anchor" href="#_terminology_id_class"></a>5.5.6.4. Terminology_id Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Terminology_id</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Identifier for terminologies such as accessed via a terminology query service. In this class, the value attribute identifies the Terminology in the terminology service, e.g.  SNOMED-CT . A terminology is assumed to be in a particular language, which must be explicitly specified.</p>
+</div>
+<div class="paragraph">
+<p>Lexical form: <code>name [  '(' version  ')' ]</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_artifact_id_class">Artifact_id</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>name</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Return the terminology id (which includes the  version  in some cases). Distinct names correspond to distinct (i.e. non-compatible) terminologies. Thus the names  <code>"ICD10AM"</code> and <code>"ICD10"</code> refer to distinct terminologies.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>version_id</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Version of this terminology, if versioning supported, else the empty string.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_references"><a class="anchor" href="#_references"></a>5.6. References</h3>
+<div class="paragraph">
+<p>All <code>OBJECT_IDs</code> are used as identifier attributes within the thing they identify, in the same way as a database primary key. To refer to an identified object from another object, an instance of the class <code>OBJECT_REF</code> is used, in the same way as a database foreign key. This class supports distributed referencing, and includes the object namespace (typically 1:1 with some service, such as "terminology") and type. The general principle of object references is to be able to refer to an object available in a particular namespace or service. Usually they are used to refer to objects in other services, such as a demographic entity from within an EHR, but they may be used to refer to local objects as well. The type may be the concrete type of the referred-to object (e.g. "GP") or any proper ancestor (e.g. <code>PARTY</code>).</p>
+</div>
+<div class="sect3">
+<h4 id="_class_descriptions_3"><a class="anchor" href="#_class_descriptions_3"></a>5.6.1. Class Descriptions</h4>
+<div class="sect4">
+<h5 id="_object_ref_class"><a class="anchor" href="#_object_ref_class"></a>5.6.1.1. Object_ref Class</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Object_ref</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Class describing a reference to a <code>Locatable</code> instance whose identifier is <code><em>id</em></code>., which may exist locally or be maintained outside the current namespace, e.g. in another service. In a relational DB, equivalent to a 'foreign key' with extra meta-data.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>namespace</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Namespace to which this identifier belongs in the local system context (and possibly in any other openEHR compliant environment) e.g. <code>"terminology"</code>, <code>"demographic"</code>. These names are not yet standardised. Legal values for <code><em>namespace</em></code> are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>"local"</code></p>
+</li>
+<li>
+<p><code>"unknown"</code></p>
+</li>
+<li>
+<p>a string matching the standard regex <code>[a-zA-Z][a-zA-Z0-9_.:\/&amp;?=+-]*</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that the first two are just special values of the regex, and will be matched by it.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>type</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of the  class (concrete or abstract) of object to which this identifier type refers, e.g. <code>PARTY</code>, <code>PERSON</code>,  <code>GUIDELINE</code>  etc. These class names are from the relevant reference model. The type name <code>ANY</code> can be used to indicate that any type is accepted (e.g. if the type is unknown).</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>id</strong>: <code><a href="#_object_id_class">Object_id</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Globally unique id of an object, regardless of where it is stored.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>path</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The path to an instance, as an absolute path with respect to the object found at <code>VERSION.<em>data</em></code>. An empty path means that the object referred to by <code><em>id</em></code> is being specified.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>as_uri</strong> (): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A URI form of the reference, created by concatenating the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>scheme, e.g. <code>ehr:</code>, derived from <code><em>namespace</em></code></p>
+</li>
+<li>
+<p><code><em>id.value</em></code></p>
+</li>
+<li>
+<p><code>/</code> + <code><em>path</em></code>, where <code><em>path</em></code> is non-empty</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_syntaxes"><a class="anchor" href="#_syntaxes"></a>5.7. Syntaxes</h3>
+<div class="paragraph">
+<p>TODO: synchronise the syntax below with model.</p>
+</div>
+<div class="paragraph">
+<p>The identifiers defined above are defined in their string form by the following EBNF grammar rules.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ebnf"><span></span><span class="tok-cm">(* ------------------------- Uid, OID, Uuid -------------------------- *)</span>
+<span class="tok-k">uid     </span><span class="tok-o">=</span> <span class="tok-k">iso_oid </span><span class="tok-p">|</span> <span class="tok-k">uuid </span><span class="tok-p">|</span> <span class="tok-k">internet_id </span><span class="tok-p">;</span>
+<span class="tok-k">iso_oid </span><span class="tok-o">=</span> <span class="tok-k">number</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">number </span><span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">uuid    </span><span class="tok-o">=</span> <span class="tok-k">hex-number</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">hex-number</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">hex-number</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">hex-number</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">hex-number </span><span class="tok-p">;</span>
+
+<span class="tok-cm">(* --------------------------- Internet_id --------------------------- *)</span>
+<span class="tok-cm">(* According to IETF http://tools.ietf.org/html/rfc1034[RFC 1034] and  *)</span>
+<span class="tok-cm">(* http://tools.ietf.org/html/rfc1035[RFC 1035], as clarified by       *)</span>
+<span class="tok-cm">(* http://tools.ietf.org/html/rfc2181[RFC 2181] (section 11),          *)</span>
+<span class="tok-cm">(* and relaxation of https://tools.ietf.org/html/rfc1123[RFC 1123]     *)</span>
+<span class="tok-cm">(* The syntax of a domain name follows the grammar below. Slightly     *)</span>
+<span class="tok-cm">(* reduced for the purpose here, plus allows underscores.              *)</span>
+<span class="tok-k">internet_id      </span><span class="tok-o">=</span> <span class="tok-k">subdomain </span><span class="tok-p">;</span>
+<span class="tok-k">subdomain        </span><span class="tok-o">=</span> <span class="tok-k">label </span><span class="tok-p">|</span> <span class="tok-k">subdomain</span><span class="tok-p">,</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">label </span><span class="tok-p">;</span>
+<span class="tok-k">label            </span><span class="tok-o">=</span> <span class="tok-k">alphanum </span><span class="tok-p">|</span> <span class="tok-k">alphanum-ext-str</span><span class="tok-p">,</span> <span class="tok-k">alphanum </span><span class="tok-p">;</span>
+
+<span class="tok-cm">(* -------------------- HIER_BASED_ID, Uid_BASED_ID ------------------ *)</span>
+<span class="tok-k">hier_object_id </span><span class="tok-o">=</span> <span class="tok-k">uid_based_id </span><span class="tok-p">;</span>
+<span class="tok-k">uid_based_id   </span><span class="tok-o">=</span> <span class="tok-k">root</span><span class="tok-p">,</span> <span class="tok-p">[</span> <span class="tok-s1">&#39;::&#39;</span><span class="tok-p">,</span> <span class="tok-k">extension </span><span class="tok-p">]</span> <span class="tok-p">;</span>
+<span class="tok-k">root           </span><span class="tok-o">=</span> <span class="tok-k">uid </span><span class="tok-p">;</span>
+<span class="tok-k">extension      </span><span class="tok-o">=</span> <span class="tok-ni">? any string ?</span> <span class="tok-p">;</span> <span class="tok-cm">(* any string *)</span>
+
+<span class="tok-cm">(* ------------------------- OBJECT_VERSION_ID ----------------------- *)</span>
+<span class="tok-k">object_version_id  </span><span class="tok-o">=</span> <span class="tok-k">object_id</span><span class="tok-p">,</span> <span class="tok-s1">&#39;::&#39;</span><span class="tok-p">,</span> <span class="tok-k">creating_system_id</span><span class="tok-p">,</span> <span class="tok-s1">&#39;::&#39;</span><span class="tok-p">,</span> <span class="tok-k">version_tree_id </span><span class="tok-p">;</span>
+<span class="tok-k">object_id          </span><span class="tok-o">=</span> <span class="tok-k">uid </span><span class="tok-p">;</span>
+<span class="tok-k">creating_system_id </span><span class="tok-o">=</span> <span class="tok-k">uid </span><span class="tok-p">;</span>
+
+<span class="tok-cm">(* ------------------------- VERSION_TREE_ID ------------------------- *)</span>
+<span class="tok-k">version_tree_id </span><span class="tok-o">=</span> <span class="tok-k">trunk_version</span><span class="tok-p">,</span> <span class="tok-p">[</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">branch_number</span><span class="tok-p">,</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">branch_version </span><span class="tok-p">]</span> <span class="tok-p">;</span>
+<span class="tok-k">trunk_version   </span><span class="tok-o">=</span> <span class="tok-k">number </span><span class="tok-p">;</span>
+<span class="tok-k">branch_number   </span><span class="tok-o">=</span> <span class="tok-k">number </span><span class="tok-p">;</span>
+<span class="tok-k">branch_version  </span><span class="tok-o">=</span> <span class="tok-k">number </span><span class="tok-p">;</span>
+
+<span class="tok-cm">(* -------------------------- ARCHETYPE_ID --------------------------- *)</span>
+<span class="tok-k">archetype_id        </span><span class="tok-o">=</span> <span class="tok-k">qualified_rm_entity</span><span class="tok-p">,</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">domain_concept</span><span class="tok-p">,</span> <span class="tok-s1">&#39;.&#39;</span><span class="tok-p">,</span> <span class="tok-k">version_id </span><span class="tok-p">;</span>
+<span class="tok-k">qualified-rm-entity </span><span class="tok-o">=</span> <span class="tok-k">rm_originator</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">rm_name</span><span class="tok-p">,</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">rm_entity </span><span class="tok-p">;</span>
+<span class="tok-k">rm-originator       </span><span class="tok-o">=</span> <span class="tok-k">alphanum-str </span><span class="tok-p">;</span>     <span class="tok-cm">(* id of org originating the RM on which this archetype is based *)</span>
+<span class="tok-k">rm-name             </span><span class="tok-o">=</span> <span class="tok-k">alphanum-str </span><span class="tok-p">;</span>                      <span class="tok-cm">(* id of the RM on which the archetype is based *)</span>
+<span class="tok-k">rm-entity           </span><span class="tok-o">=</span> <span class="tok-k">alphanum-str </span><span class="tok-p">;</span>                                       <span class="tok-cm">(* ontological level in the RM *)</span>
+<span class="tok-k">domain-concept      </span><span class="tok-o">=</span> <span class="tok-k">concept-name</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-s1">&#39;-&#39;</span><span class="tok-p">,</span> <span class="tok-k">specialisation </span><span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">concept-name        </span><span class="tok-o">=</span> <span class="tok-k">alphanum-str </span><span class="tok-p">;</span>
+<span class="tok-k">specialisation      </span><span class="tok-o">=</span> <span class="tok-k">alphanum-str </span><span class="tok-p">;</span>
+<span class="tok-k">version-id          </span><span class="tok-o">=</span> <span class="tok-s1">&#39;v&#39;</span><span class="tok-p">,</span> <span class="tok-p">(</span> <span class="tok-s1">&#39;0&#39;</span> <span class="tok-p">|</span> <span class="tok-k">non-zero-digit</span><span class="tok-p">,</span> <span class="tok-p">[</span> <span class="tok-k">number </span><span class="tok-p">]</span> <span class="tok-p">)</span> <span class="tok-p">;</span>            <span class="tok-cm">(* numeric version identifier *)</span>
+
+<span class="tok-cm">(* ------------------------- TERMINOLOGY_ID -------------------------- *)</span>
+<span class="tok-k">terminology_id </span><span class="tok-o">=</span> <span class="tok-k">name-str</span><span class="tok-p">,</span> <span class="tok-p">[</span> <span class="tok-s1">&#39;(&#39;</span><span class="tok-p">,</span> <span class="tok-k">name-str</span><span class="tok-p">,</span> <span class="tok-s1">&#39;)&#39;</span> <span class="tok-p">]</span> <span class="tok-p">;</span>
+
+<span class="tok-cm">(* -------------------------- generic rules -------------------------- *)</span>
+<span class="tok-k">alphanum     </span><span class="tok-o">=</span> <span class="tok-k">letter </span><span class="tok-p">|</span> <span class="tok-k">digit </span><span class="tok-p">;</span>
+<span class="tok-k">name-str     </span><span class="tok-o">=</span> <span class="tok-k">letter</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-k">letter </span><span class="tok-p">|</span> <span class="tok-k">digit </span><span class="tok-p">|</span> <span class="tok-s1">&#39;_&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;-&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;/&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;+&#39;</span> <span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">alphanum-str </span><span class="tok-o">=</span> <span class="tok-k">letter</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-k">letter </span><span class="tok-p">|</span> <span class="tok-k">digit </span><span class="tok-p">|</span> <span class="tok-s1">&#39;_&#39;</span> <span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">alphanum-ext-str </span><span class="tok-o">=</span> <span class="tok-k">letter</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-k">letter </span><span class="tok-p">|</span> <span class="tok-k">digit </span><span class="tok-p">|</span> <span class="tok-s1">&#39;_&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;-&#39;</span> <span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">letter       </span><span class="tok-o">=</span> <span class="tok-s1">&#39;A&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;B&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;C&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;D&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;E&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;F&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;G&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;H&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;I&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;J&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;K&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;L&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;M&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;N&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;O&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;P&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;Q&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;R&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;S&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;T&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;U&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;V&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;W&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;X&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;Y&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;Z&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;a&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;b&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;c&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;d&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;e&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;f&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;g&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;h&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;i&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;j&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;k&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;l&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;m&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;n&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;o&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;p&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;q&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;r&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;s&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;t&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;u&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;v&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;w&#39;</span>
+             <span class="tok-p">|</span> <span class="tok-s1">&#39;x&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;y&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;z&#39;</span> <span class="tok-p">;</span>
+
+<span class="tok-k">number         </span><span class="tok-o">=</span> <span class="tok-k">digit</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-k">digit </span><span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">hex-number     </span><span class="tok-o">=</span> <span class="tok-k">hex-digit</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-k">hex-digit </span><span class="tok-p">}</span> <span class="tok-p">;</span>
+<span class="tok-k">digit          </span><span class="tok-o">=</span> <span class="tok-s1">&#39;0&#39;</span> <span class="tok-p">|</span> <span class="tok-k">non-zero-digit </span><span class="tok-p">;</span>
+<span class="tok-k">non-zero-digit </span><span class="tok-o">=</span> <span class="tok-s1">&#39;1&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;2&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;3&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;4&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;5&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;6&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;7&#39;</span><span class="tok-p">|</span> <span class="tok-s1">&#39;8&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;9&#39;</span> <span class="tok-p">;</span>
+<span class="tok-k">hex-digit      </span><span class="tok-o">=</span> <span class="tok-k">digit </span><span class="tok-p">|</span> <span class="tok-s1">&#39;A&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;B&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;C&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;D&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;E&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;F&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;a&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;b&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;c&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;d&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;e&#39;</span> <span class="tok-p">|</span> <span class="tok-s1">&#39;f&#39;</span> <span class="tok-p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_archetyped_package"><a class="anchor" href="#_archetyped_package"></a>6. Archetyped Package</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_5"><a class="anchor" href="#_overview_5"></a>6.1. Overview</h3>
+<div class="paragraph">
+<p>The <code>archetyped</code> package defines the core types <code>Pathable</code>, <code>Locatable</code>, <code>Archetyped</code>, and <code>LINK</code>. It is illustrated in <a href="#archetyped_package">Figure 5</a>.</p>
+</div>
+<div id="archetyped_package" class="imageblock text-center text-center">
+<div class="content">
+<img src="UML/diagrams/BASE-model_support.archetyped.svg" alt="BASE model support.archetyped">
+</div>
+<div class="title">Figure 5. model_support.archetyped Package</div>
+</div>
+<div class="sect3">
+<h4 id="_the_pathable_class"><a class="anchor" href="#_the_pathable_class"></a>6.1.1. The Pathable Class</h4>
+<div class="paragraph">
+<p>The <code>Pathable</code> class defines the pathing capabilities used by nearly all classes in the openEHR reference model, mostly via inheritance of <code>Locatable</code>. The defining characteristics of <code>Pathable</code> objects are that they can locate child objects using paths, and they know their parent object in a compositional hierarchy. The <code><em>parent</em></code> feature is defined as abstract in the model, and may be implemented in any way convenient.</p>
+</div>
+<div class="paragraph">
+<p>A number of functions provide the path functionality, of which <code><em>item_at_path()</em></code> and <code><em>items_at_path()</em></code> are the key functions. The former returns an item corresponding to a unique path, i.e. a path that resolves against the data structure to a single node. The latter returns a list of items corresponding to a non-unique path. These functions can be used safely using the following pattern, but can also be used without checking the validity of paths, if this is known a priori in the code anyway.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-k">if</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">path_exists</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">a_path</span><span class="tok-p">))</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">    </span><span class="tok-k">if</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">path_unique</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">a_path</span><span class="tok-p">))</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">x</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">item_at_path</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">a_path</span><span class="tok-p">);</span>
+<span class="tok-w">		</span><span class="tok-c1">// process one item</span>
+<span class="tok-w">	</span><span class="tok-p">}</span>
+<span class="tok-w">    </span><span class="tok-k">else</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">list_of_x</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">items_at_path</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">a_path</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-c1">//iterate the list</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_locatable_class"><a class="anchor" href="#_the_locatable_class"></a>6.1.2. The Locatable Class</h4>
+<div class="paragraph">
+<p>Most classes in the openEHR reference model inherit from the <code>Locatable</code> class, which defines the idea of 'locatability in an archetyped structure'. <code>Locatable</code> defines a runtime name and an <code><em>archetype_node_id</em></code>. The <code><em>archetype_node_id</em></code> is the standardised semantic code for a node and comes from the corresponding node in the archetype used to create the data. The only exception is at archetype root points in data, where <code><em>archetype_node_id</em></code> carries the archetype identifier in string form rather than an interior node id from an archetype. <code>Locatable</code> also provides the attribute <code><em>archetype_details</em></code>, which is non-Void for archetype root points in data, and carries meta-data relevant to root points. The <code><em>name</em></code> attribute carries a name created at runtime. The 'meaning' of any node is derived formally from the archetype by obtaining the text value for the <code><em>archetype_node_id</em></code> code from the archetype <code>ontology</code> section, in the language required.</p>
+</div>
+<div class="paragraph">
+<p>The <code><em>name</em></code> and <code><em>archetype_node_id</em></code> valuesin a <code>Locatable</code> instance are often the same semantically, but may differ. For example, in "problem/SOAP" Sections (i.e. headings), the name of a section at the problem level might be "diabetes", but its meaning might be "problem". The default value for <code><em>name</em></code> should be assumed to be the text value in the local language for the <code><em>archetype_node_id</em></code> code on the node in question, unless explicitly set otherwise.</p>
+</div>
+<div class="sect4">
+<h5 id="_unique_node_identification"><a class="anchor" href="#_unique_node_identification"></a>6.1.2.1. Unique Node Identification</h5>
+<div class="paragraph">
+<p><code>Locatable</code> descendants may have a <code><em>uid</em></code>, containing a GUID. In the current openEHR architecture, GUIDs are not needed to identify data nodes, since paths are used to reference all nodes inside top-level structures (i.e. <code>Compositions</code> etc). Accordingly all references between parts of an EHR are represented in terms of <code>Locatable_REFs</code> or <code>DV_EHR_URIs</code> (the former is a reference to an <code>OBJECT_VERSION_ID</code> with a path appended; the latter is the stringified URI form). This would allow for example, one Entry to reference the serum sodium value in another Entry in version 2 of a Versioned Composition for a laboratory test on 12/Apr/2004. The <code><em>uid</em></code> attribute will usually be empty in most EHR data in most openEHR EHR systems.</p>
+</div>
+<div class="paragraph">
+<p>The exception is the top-level types such as <code>Composition</code>, <code>Ehr_status</code>, <code>PARTY</code> etc for which it is recommended to set the <code><em>uid</em></code> value to a copy of the <code><em>uid.object_id()</em></code> value of the owning <code>Version</code> object (usually an <code>Original_version</code>), i.e. the leading Uid, which is normally a GUID. This enables easy identification of standalone top-level objects in a serialised form. For example, if the <code>Original_version.uid</code> is <code>87284370-2D4B-4e3d-A3F3-F303D2F4F34B::uk.nhs.ehr1::2</code>, the GUID <code>87284370-2D4B-4e3d-A3F3-F303D2F4F34B</code> would be copied to the contained <code>Composition.uid</code> field.</p>
+</div>
+<div class="paragraph">
+<p>Another use for <code>Locatable.<em>uid</em></code> is in EHR Extracts, which contain serialised expressions of EHR content. In an Extract, <code><em>uid</em></code> could be set on some or all nodes to a value generated by concatenating the <code><em>uid</em></code> value of the enclosing Version object (i.e. <code>Version.<em>uid</em></code>) and the unique runtime path to the particular node. This may be useful to the receiver system for the purpose of referencing particular data nodes when communicating to the sender, or another system. This use of <code><em>uid</em></code> is not however mandatory, since for each node in an Extract item, the <code><em>uid</em></code> value can be generated at any time (including at the receiver system).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+some classes in the openEHR architecture that do not inherit from <code>Locatable</code> but require a Uid, such as <code>Versioned_object</code>, <code>Version</code> etc, explicitly define their own <code><em>uid</em></code> attributes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_feeder_system_audit"><a class="anchor" href="#_feeder_system_audit"></a>6.1.3. Feeder System Audit</h4>
+<div class="paragraph">
+<p>The data in any part of the EHR may be obtained from a feeder system, i.e. a source system which does not obey the versioning, auditing and content semantics of openEHR (data in the EHR which have been sourced from another openEHR system are dealt with in the Common IM, Change control section). The <code>Feeder_audit</code> class defines the semantics of an audit trail which is constructed to describe the origin of data that have been transformed into openEHR form and committed to the system. There are a number of aspects to the problem of transforming data for committal into an openEHR system, dealt with in the following subsections.</p>
+</div>
+<div class="sect4">
+<h5 id="_requirements_2"><a class="anchor" href="#_requirements_2"></a>6.1.3.1. Requirements</h5>
+<div class="paragraph">
+<p>The model of Feeder audit is designed to satisfy the following requirements with respect to EHR content sourced from non-openEHR systems:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>record medico-legal audit information from the originating system (e.g. pathology lab system) similar to that captured in the <code>Audit_details</code> class in the <code>change_control</code> package;</p>
+</li>
+<li>
+<p>record information identifying the immediate system from which the content was obtained (might not be the originating system);</p>
+</li>
+<li>
+<p>record sufficient information to distinguish incoming items from each other, and to enable the detection of duplicates and new versions of the same item;</p>
+</li>
+<li>
+<p>allow the inclusion of the source content either as a link or inline.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_design_principles"><a class="anchor" href="#_design_principles"></a>6.1.3.2. Design Principles</h5>
+<div class="paragraph">
+<p>The design of the Feeder audit part of the reference model is based on a generalised model of data communication in which various elements are identified, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>the originating system</em>: the computer system where the information item was initially created, e.g. the system at a pathology laboratory or a reporting system for a number of laboratories;</p>
+</li>
+<li>
+<p><em>intermediate systems</em>: any system which moves information from the originating system to an openEHR system;</p>
+</li>
+<li>
+<p><em>the feeder system</em>: the intermediate system from which the information item was directly obtained by the openEHR system; this might be the originating system, or it may be a distinct intermediate system;</p>
+</li>
+<li>
+<p><em>the committing openEHR system</em>: the openEHR system where the information item is transformed into openEHR form and committed as a Composition;</p>
+</li>
+<li>
+<p><em>openEHR converter</em>: a component whose job it is to convert non-openEHR information into a form compliant with the openEHR reference model and chosen archetypes;</p>
+</li>
+<li>
+<p><em>original content store</em>: some EHR systems may have an associated persistent repository of content as received from external systems, e.g. a message or document database.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#feeder_chain">Figure 6</a> illustrates these elements, shown as a "feeder chain", along with typical meta-data available in messages from each system. In general, not much can be assumed about systems in the feeder chain. The originating system may or may not correspond to the place of the clinical activity - it is not uncommon for a pathology company to have a centralised report issuing location while having numerous physical laboratories. There is often limited consistency in the way identifiers are assigned, timestamps are created, and information is structured and coded. In general, information from a feeder system is in response to a request, often a pathology order, although the request/response pattern probably cannot be assumed in all cases.</p>
+</div>
+<div id="feeder_chain" class="imageblock text-center text-center">
+<div class="content">
+<img src="model_support/diagrams/feeder_chain.png" alt="feeder chain" width="80%">
+</div>
+<div class="title">Figure 6. Abstract Model of Feeder Chain</div>
+</div>
+<div class="paragraph">
+<p>The idea underlying the openEHR Feeder audit model is that there are two groups of meta-data which should be recorded about an imported information item. The first is medico-legal meta-data about its creation: the system of origin, who created it and when it was created. The second is identifying meta-data for the item from the originating and feeder system, and potentially other intermediate systems in the feeder chain, where necessary to support duplicate detection, version detection and so on.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_meta_data"><a class="anchor" href="#_meta_data"></a>6.1.3.3. Meta-data</h5>
+<div class="paragraph">
+<p>The potentially available medico-legal meta-data about the received item is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>identifier of the originating system (where the item was originally committed);</p>
+</li>
+<li>
+<p>identifier of the information item in the originating system;</p>
+</li>
+<li>
+<p>agent who committed the item;</p>
+</li>
+<li>
+<p>timestamp of committal or creation of the item;</p>
+</li>
+<li>
+<p>type of change, e.g. initial creation, correction (including deletion of a subpart), logical deletion (e.g. due to cancellation of order);</p>
+</li>
+<li>
+<p>status of information, e.g. interim, final;</p>
+</li>
+<li>
+<p>version id, where versioning is supported.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above information is equivalent to the audit trail and versioning data captured when information created in an openEHR system is committed in a Composition version.</p>
+</div>
+<div class="paragraph">
+<p>Various kinds of identifying information may be required including the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>subject identifier (often more than one, e.g. national patient id, GP&#8217;s local patient id, lab&#8217;s local patient id) are usually recorded and may be required for traceability purposes;</p>
+</li>
+<li>
+<p>subject identifier(s) may identify someone other than the subject of the record as being the subject of the incoming item;</p>
+</li>
+<li>
+<p>location of the feeder system;</p>
+</li>
+<li>
+<p>identifier of the feeder system (which may be one of many at the feeder system location);</p>
+</li>
+<li>
+<p>identifier the feeder system uses for the item in question (often known as an "accession id");</p>
+</li>
+<li>
+<p>identifier of request or order to which the information is a response (sometimes known as a "placer&#8217;s request id");</p>
+</li>
+<li>
+<p>identifier of the information item used by the originating system (sometimes known as a "filler&#8217;s request id");</p>
+</li>
+<li>
+<p>timestamp(s) assigned by feeder system to the item.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some or all of this information will usually be sufficient to perform a number of tasks as follows.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_traceability"><a class="anchor" href="#_traceability"></a>6.1.3.4. Traceability</h5>
+<div class="paragraph">
+<p>The first task is to support medico-legal investigation into the path of the information item through the health computing infrastructure. This requires the availability of sufficient identifier information that the origin of the information item can be traced. Subject identifiers where available should be used to ensure that the received data go into the correct EHR, by ensuring that the relevant lookups in client directories or other lookup mechanisms can be effected. Again, in rare cases, the subject of the incoming data item may not necessarily be the subject of the EHR - a test result may be made from a relative or other associate which will be stored in the patient&#8217;s EHR.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_version_detection"><a class="anchor" href="#_version_detection"></a>6.1.3.5. Version Detection</h5>
+<div class="paragraph">
+<p>The second is to detect new versions of an item (e.g. interim and final versions of a microbiology test result). This can usually be achieved by using various identifiers as well as the originating system version id and/or content status (interim, final etc). A new openEHR Composition version should always be created for each received version, even where the content does not change at all (e.g. a microbiology test where the result is "no growth" in both interim and final results).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_duplicate_detection"><a class="anchor" href="#_duplicate_detection"></a>6.1.3.6. Duplicate Detection</h5>
+<div class="paragraph">
+<p>Another task is to disambiguate duplicates (often caused by failure of a network connection during sending) coming from the feeder system. In some cases however duplicates are erroneously given new ids by the feeder system, giving the receiver the impression of a new information. In such cases, a further item of meta-data may be required:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>hash or content signature generated (most likely by the converter) from the received information.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_differentially_coded_data"><a class="anchor" href="#_differentially_coded_data"></a>6.1.3.7. Differentially Coded Data</h5>
+<div class="paragraph">
+<p>A further problem is that the originating system may send new versions of an item which are not complete in and of themselves, i.e. which only include new or changed elements with respect to a previous send of the same item. An example is a system which sends a correction to an HL7v2 blood test message, where the correction includes just the "serum sodium" data item. In this case, special processing will be required in the openEHR converter component, in order to regenerate a full data item from difference data when it is received. Such processing may also have to take account of deleted items.</p>
+</div>
+<div class="paragraph">
+<p>In summary, the Feeder audit class design tries to accommodate the recording of as much of the above meta-data as is relevant in any particular case. It is up to the design of openEHR conversion front-end components as well as proper analysis of the situation to determine which identifiers are germane to the needs of traceability. In general, any meta-data of medico-legal significance should be captured where it is available.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_using_feeder_audit_in_converted_data"><a class="anchor" href="#_using_feeder_audit_in_converted_data"></a>6.1.3.8. Using Feeder Audit in Converted Data</h5>
+<div class="paragraph">
+<p>Although the design of the openEHR converter is outside the scope of the current document, it is worth considering a common design approach, and where the <code>Feeder_audit</code> class fits in. An effective way of converting non-openEHR data such as HL7v2 messages, relational data etc, is in two steps. The first is to perform a 'syntactic' conversion to Compositions containing instances of the <code>Generic_entry</code> class (described in the Integration IM), using 'legacy archetypes'. The resulting database will contain versioned Compositions containing <code>Generic_entry</code> instances; logically this database does not contain EHRs but simply external data converted to openEHR computational form. The relevant <code>Feeder_audit</code> instances should be attached to the Compositions containing the corresponding <code>Generic_entry</code> instances. The second step is to perform a 'semantic' conversion to subtypes of Entry, i.e. <code>Observation</code>, <code>Assertion</code>, <code>Order</code> and <code>Action</code>, according to standardised clinical archetypes. There are various possibilities for what to do with the Feeder audit. The minimum Feeder audit required on the final instance contains the originating system audit information, but none of the information to do with feeder or intermediate systems. This will satisfy medico-legal needs. Alternatively, a complete copy could be made, even though the feeder-related meta-data is probably only of use in the conversion environment. What the Feeder audit looks like in the EHR proper may depend on local legislation, norms or other factors. Alternative conversion approaches are also possible, in which no intermediate form of data exists.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_structural_correspondence"><a class="anchor" href="#_structural_correspondence"></a>6.1.3.9. Structural Correspondence</h5>
+<div class="paragraph">
+<p>There is no guarantee that the granularity of information recorded in the feeder system obeys the rules of Entries, Compositions, etc. As a consequence, feeder information might correspond to any level of information defined in the openEHR models. In order to be able to record feeder audit information correctly, the model has to be able to associate an audit trail with any granularity of object. For this reason, feeder audit information is attached to the <code>Locatable</code> class via the feeder_audit attribute, even though it is preferable by design to have it attached to the equivalent of Compositions or at least the equivalent of archetype entities (i.e. Compositions, Section trees and Entries). Its usual usage is to attach it to the outermost object to which it applies. In other words, in most cases, during a legacy data conversion process, the entirety of a Composition needs only one <code>Feeder_audit</code> to document its origins. In exceptional cases, where feeder data comes in in near real time, e.g. from an ICU database, separate <code>Feeder_audit</code> objects may need to be generated for parts of a Composition; each commit in this situation will create a stack of versions of one Composition, with a growing number of <code>Feeder_audit</code> objects attached to internal data nodes, each documenting the last import of data.</p>
+</div>
+<div class="paragraph">
+<p>The Feeder audit information is included as part of the data of the Composition, rather than part of the audit trail of version committal, because it remains relevant throughout the versioning of a logical Composition, i.e. when a new version is created, the feeder information is retained as part of the current version to be seen and possibly modified, just as for the rest of its content. If the main part of the content is modified so drastically as to make the feeder audit irrelevant, it too can be removed. A second consequence of feeder and legacy systems is that structural data items may need to be synthesised in order to create valid structures, even though the source system does not have them. For example, a system may have the equivalent data of Clusters and Elements (see <a href="https://specifications.openehr.org/releases/RM/latest/data_structures.html" target="_blank" rel="noopener">openEHR Data Structures IM</a> or <a href="https://www.iso.org/standard/40784.html" target="_blank" rel="noopener">ISO 13606</a>), but no Entries, Sections or other higher-level data items; these have to be synthesised during conversion. To indicate synthesis of a data node, a <code>Feeder_audit</code> instance is attached to the <code>Locatable</code> in question, and its <code><em>change_type</em></code> set to "synthesised".</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_original_content"><a class="anchor" href="#_original_content"></a>6.1.3.10. Original Content</h5>
+<div class="paragraph">
+<p>The features of the model described so far allow accurate referencing of content as it is known in source systems and intermediate feeder systems. A further feature of the <code>Feeder_audit</code> class, the <code><em>original_content</em></code> attribute allows the original content item itself to be either included inline or pointed to. If a link is used, the usual situation is that the content is in a store associated with the receiving system, such as a message or document database. The content could also be included inline. Since the <code><em>original_content</em></code> link is on a <code>Feeder_audit</code> object, more than one can be used within the same generated Composition if required. It may be deemed preferable to attach only a single link at the top node, i.e. the Composition node, since this establishes basic equivalent between the whole Composition and the whole document or message.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_class_definitions_3"><a class="anchor" href="#_class_definitions_3"></a>6.2. Class Definitions</h3>
+<div class="sect3">
+<h4 id="_pathable_class"><a class="anchor" href="#_pathable_class"></a>6.2.1. Pathable Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong><em>Pathable (abstract)</em></strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>The <code>Pathable</code> class defines the pathing capabilities used by nearly all classes in the openEHR reference model, mostly via inheritance of <code>Locatable</code>. The defining characteristics of <code>Pathable</code> objects are that they can locate child objects using paths, and they know their parent object in a compositional hierarchy. The parent feature is defined as abstract in the model, and may be implemented in any way convenient.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_any_class">Any</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>parent</strong> (): <code><a href="#_pathable_class">Pathable</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Parent of this node in a compositional hierarchy.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>item_at_path</strong> (<br>
+a_path: <code><a href="#_string_class">String</a>[1]</code><br>
+): <code><a href="#_any_class">Any</a></code><br>
+<br>
+<em>Pre</em>: <code>path_unique (a_path)</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The item at a path (relative to this item); only valid for unique paths, i.e. paths that resolve to a single item.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>items_at_path</strong> (<br>
+a_path: <code><a href="#_string_class">String</a>[1]</code><br>
+): <code>List&lt;<a href="#_any_class">Any</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>List of items corresponding to a non-unique path.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>path_exists</strong> (<br>
+a_path: <code><a href="#_string_class">String</a>[1]</code><br>
+): <code><a href="#_boolean_class">Boolean</a></code><br>
+<br>
+<em>Pre</em>: <code>not a_path.is_empty</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if the path exists in the data with respect to the current item.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>path_unique</strong> (<br>
+a_path: <code><a href="#_string_class">String</a>[1]</code><br>
+): <code><a href="#_boolean_class">Boolean</a></code><br>
+<br>
+<em>Pre</em>: <code>path_exists (a_path)</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if the path corresponds to a single item in the data.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>path_of_item</strong> (<br>
+a_loc: <code><a href="#_pathable_class">Pathable</a>[1]</code><br>
+): <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The path to an item relative to the root of this archetyped structure.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_locatable_class"><a class="anchor" href="#_locatable_class"></a>6.2.2. Locatable Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong><em>Locatable (abstract)</em></strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Root class of all information model classes that can be archetyped. Most classes in the openEHR reference model inherit from the <code>Locatable</code> class, which defines the idea of  locatability in an archetyped structure. <code>Locatable</code> defines a runtime name and an <code><em>archetype_node_id</em></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Inherit</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock"><code><a href="#_pathable_class">Pathable</a></code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>uid</strong>: <code><a href="#_uuid_class">Uuid</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional globally unique object identifier for root points of archetyped structures.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>archetype_node_id</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Design-time archetype identifier of this node taken from its generating archetype; used to build archetype paths. Always in the form of an at-code, e.g. <code>at0005</code>. This value enables a 'standardised' name for this node to be generated, by referring to the generating archetype local terminology.</p>
+</div>
+<div class="paragraph">
+<p>At an archetype root point, the value of this attribute is always the stringified form of the <code><em>archetype_id</em></code> found in the <code><em>archetype_details</em></code> object.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>name</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Runtime name of this fragment, used to build runtime paths. This is the term provided via a clinical application or batch process to name this EHR construct: its retention in the EHR faithfully preserves the original label by which this entry was known to end users.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>archetype_details</strong>: <code><a href="#_archetyped_class">Archetyped</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Details of archetyping used on this node.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>feeder_audit</strong>: <code><a href="#_feeder_audit_class">Feeder_audit</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Audit trail from non-openEHR system of original commit of information forming the content of this node, or from a conversion gateway which has synthesised this node.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Functions</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>is_archetype_root</strong> (): <code><a href="#_boolean_class">Boolean</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>True if this node is the root of an archetyped structure.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Links_valid</em>: <code>links /= Void implies not links.is_empty</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Archetyped_valid</em>: <code>is_archetype_root xor archetype_details = Void</code></p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Archetype_node_id_valid</em>: <code>not archetype_node_id.is_empty</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_archetyped_class"><a class="anchor" href="#_archetyped_class"></a>6.2.3. Archetyped Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Archetyped</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Archetypes act as the configuration basis for the particular structures of instances defined by the reference model. To enable archetypes to be used to create valid data, key classes in the reference model act as  root  points for archetyping; accordingly, these classes have the <code><em>archetype_details</em></code> attribute set.</p>
+</div>
+<div class="paragraph">
+<p>An instance of the class <code>ARCHETYPED</code> contains the relevant archetype identification information, allowing generating archetypes to be matched up with data instances.</p>
+</div>
+<div class="paragraph">
+<p>TODO: use ARCHETYPE_HRID</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>archetype_id</strong>: <code><a href="#_archetype_id_class">Archetype_id</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Globally unique archetype identifier.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>template_id</strong>: <code><a href="#_archetype_id_class">Archetype_id</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Globally unique template identifier, if a template was active at this point in the structure. Normally, a template would only be used at the top of a top-level structure, but the possibility exists for templates at lower levels.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>rm_version</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Version of the openEHR reference model used to create this object. Expressed in terms of the release version string, e.g.  1.0 ,  1.2.4 .</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>Rm_version_valid</em>: <code>not rm_version.is_empty</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_link_class"><a class="anchor" href="#_link_class"></a>6.2.4. Link Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Link</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>The <code>Link</code> type defines a logical relationship between two items, such as two <code>Entrys</code> or an <code>Entry</code> and a <code>Composition</code>. Links can be used across compositions, and across EHRs. Multiple <code>Links</code> can be attached to the root object of any archetyped structure to give the effect of a 1&#8594;N link.</p>
+</div>
+<div class="paragraph">
+<p>1:1 and 1:N relationships between archetyped content elements (e.g. <code>Entrys</code>) can be expressed by using one, or more than one, respectively, <code>Links</code>. Chains of links can be used to see problem threads or other logical groupings of items.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>meaning</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Used to describe the relationship, usually in clinical terms, such as  in response to  (the relationship between test results and an order),  follow-up to  and so on. Such relationships can represent any clinically meaningful connection between pieces of information.</p>
+</div>
+<div class="paragraph">
+<p>TODO: check use of DV_xxx types here.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>type</strong>: <code><a href="#_terminology_term_class">Terminology_term</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Indicates a clinical or domain-level meaning for the kind of link, for example 'problem' or 'issue'. If type values are designed appropriately, they can be used by the requestor of EHR extracts to categorise links which must be followed and which can be broken when the extract is created.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>target</strong>: <code><a href="#_uri_class">Uri</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The logical target object in the link relation, as per the linguistic sense of the meaning attribute.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_feeder_audit_class"><a class="anchor" href="#_feeder_audit_class"></a>6.2.5. Feeder_audit Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Feeder_audit</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>The <code>Feeder_audit</code> class defines an audit trail describing the origin of data that have been ingested and committed to the system.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>originating_system_item_ids</strong>: <code>List&lt;<a href="#_rwe_id_ref_class">Rwe_id_ref</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifiers used for the item in the originating system, e.g. filler and placer ids.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>feeder_system_item_ids</strong>: <code>List&lt;<a href="#_rwe_id_ref_class">Rwe_id_ref</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifiers used for the item in the feeder system, where the feeder system is distinct from the originating system.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>original_content</strong>: <code><a href="#_encapsulated_class">Encapsulated</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional inline inclusion of or reference to original content corresponding to the openEHR content at this node. Typically a URI reference to a document or message in a persistent store associated with the EHR.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>originating_system_audit</strong>: <code><a href="#_feeder_audit_details_class">Feeder_audit_details</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Any audit information for the information item from the originating system.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>feeder_system_audit</strong>: <code><a href="#_feeder_audit_details_class">Feeder_audit_details</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Any audit information for the information item from the feeder system, if different from the originating system.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_feeder_audit_details_class"><a class="anchor" href="#_feeder_audit_details_class"></a>6.2.6. Feeder_audit_details Class</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 33.3333%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Class</strong></p></th>
+<th class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>Feeder_audit_details</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Description</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p>Audit details for any system in a feeder system chain. Audit details here means the general notion of who/where/when the information item to which the audit is attached was created. None of the attributes is defined as mandatory, however, in different scenarios, various combinations of attributes will usually be mandatory. This can be controlled by specifying feeder audit details in legacy archetypes.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Attributes</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Signature</strong></p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Meaning</strong></p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>1..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>system_id</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifier of the system which handled the information item. This is the IT system owned by the organisation legally responsible for handling the data, and at which the data were previously created or passed by an earlier system.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>location</strong>: <code><a href="#_entity_ref_node_class">Entity_ref_node</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifier of the particular site/facility within an organisation which handled the item. For computability, this identifier needs to be e.g. a PKI identifier which can be included in the identifier list of the <code>PARTY_IDENTIFIED</code> object.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>subject</strong>: <code><a href="#_entity_ref_node_class">Entity_ref_node</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Identifiers for subject of the received information item.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>provider</strong>: <code><a href="#_entity_ref_node_class">Entity_ref_node</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional provider(s) who created, committed, forwarded or otherwise handled the item.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>time</strong>: <code><a href="#_date_time_class">Date_time</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Time of handling the item. For an originating system, this will be time of creation, for an intermediate feeder system, this will be a time of accession or other time of handling, where available.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>version_id</strong>: <code><a href="#_string_class">String</a></code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Any identifier used in the system such as  "interim" ,  "final" , or numeric versions if available.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>0..1</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>other_details</strong>: <code><a href="#_hash_class">Hash</a>&lt;<a href="#_string_class">String</a>, <a href="#_string_class">String</a>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional attribute to carry any custom meta-data. May be archetyped.</p>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top"><p class="tableblock"><strong>Invariants</strong></p></th>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="paragraph">
+<p><em>System_id_valid</em>: <code>not system_id.is_empty</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-10-26 22:53:22 -0600
+</div>
+</div>
+</body>
+</html>
